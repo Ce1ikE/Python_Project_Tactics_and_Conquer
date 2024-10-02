@@ -1,2 +1,3 @@
-#Contains all files unrelated to data 
+# Contains all files unrelated to data 
 such as image and sound files
+(examples: png , otf , mp3 , mp4 m4a , etc.)
