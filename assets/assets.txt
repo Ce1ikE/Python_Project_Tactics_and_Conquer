@@ -1,0 +1,2 @@
+#Contains all files unrelated to data 
+such as image and sound files
