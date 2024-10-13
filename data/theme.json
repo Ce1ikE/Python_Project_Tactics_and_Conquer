@@ -1,0 +1,73 @@
+{
+    "Greybeard_font": {
+        "font": {
+            "name": "Greybeard",
+            "size": "16",
+            "bold": "1",
+            "regular_path": "./assets/fonts/Greybeard.ttf"
+        }
+    },
+
+
+    "button": {
+        "colours": {
+            "normal_border": "White",
+            "normal_bg": "SlateGray",
+            "normal_text": "Blue",
+            "hovered_bg": "#15B392"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "2"
+        },
+        "font": {
+            "name": "Greybeard"
+        }
+    },
+
+
+    "text_box": {
+        "font": {
+            "name": "Greybeard"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "padding": "25 10",
+            "shape_corner_radius": "25",
+            "border_width": "3"
+        }
+    },
+
+    
+    "text_entry": {
+        "font": {
+            "name": "Greybeard"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "padding": "25 10",
+            "shape_corner_radius": "25",
+            "border_width": "3"
+        }
+    },
+
+
+    "drop_down_menu": {
+        "misc": {
+            "expand_direction": "down"
+        },
+
+        "colours": {
+            "normal_bg": "#25292e",
+            "hovered_bg": "#35393e"
+        }
+    },
+    "drop_down_menu.#selected_option":{
+        "misc":{
+            "border_width": "1",
+            "open_button_width": "10"
+        }
+    }
+
+}
