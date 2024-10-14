@@ -53,6 +53,22 @@
     },
 
 
+    "panel": {
+        "colours":{
+            "normal_border": "#C7253E"
+        },
+        "background_image": {
+            "path": "./assets/jpg/Panel_Background_1.jpeg",
+            "sub_surface_rect": "0,200,735,700"
+        },
+        "misc": {
+            "shape": "rectangle",
+            "border_width": "2",
+            "shadow_width": "15"
+        }
+    },
+
+
     "drop_down_menu": {
         "misc": {
             "expand_direction": "down"

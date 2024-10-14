@@ -1,4 +1,7 @@
-
+# Game states helps us with keeping logic in our "main" loop
+PLAYING = "playing"
+MENU    = "menu"
+QUIT    = "quit"
 
 # PATHS ARE DEFINED BASED ON WORKING DIRECTORY
 # Path to the spritesheets we use
@@ -7,7 +10,7 @@ SPRITESHEET_PATH = "./assets/png/GBA_AW_Tiles.png"
 FONT_PATH_GREYBEARD = "./assets/fonts/Greybeard.ttf"
 
 # Spritesheet tile size (original), and upscale factor
-TILESIZE = 16
+TILESIZE  = 16
 SCALETILE = 2
 
 # World size in tiles
