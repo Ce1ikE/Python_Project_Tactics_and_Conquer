@@ -1,23 +1,27 @@
 import pygame
+import time
 from classes.ClassCell import Cell
 from classes.ClassSpritesheet import SpriteSheet
 from data.Configuration import *
 
 class Grid:
-    def __init__(self, width, height, tile_set):
+    def __init__(self, width, height, tile_set,tile_set_coord,ui_window):
         self.width = width
         self.height = height
         self.tile_set = tile_set  # Dictionary of tile data (neighbors etc.)
+        self.tile_set_coord = tile_set_coord
+        self.ui_window = ui_window
         self.grid = [[Cell(list(tile_set.keys())) for _ in range(width)] for _ in range(height)]
-        self.plant_seeds()
+        # self.plant_seeds()
 
     def plant_seeds(self):
         for y in range(self.height):
             for x in range(self.width):
                 if x == 0 or y == 0 or y == self.height - 1 or x == self.width - 1:
-                    self.grid[y][x].options = [TILE_MOUNTAIN]
+                    self.grid[y][x].options = [TILE_FOREST]
                     self.grid[y][x].collapsed = True
                     self.grid[y][x].entropy = 0
+                    self.draw_tile(x,y)
                     self.propagate(x,y)
     
     def get_neighbors(self, x, y):
@@ -65,15 +69,17 @@ class Grid:
 
             # Step 2: Collapse the chosen cell
             self.grid[y][x].collapse()
+            self.draw_tile(x,y)
             
             # Step 3: Propagate the constraints to neighbors
             self.propagate(x, y)
 
-    def display_grid(self,tile_set_coord,display):
-        for y in range(self.height):
-            for x in range(self.width):
-                image_cell = SpriteSheet(SPRITESHEET_PATH).image_at(tile_set_coord[self.grid[y][x].options[0]])
-                display.blit(image_cell, (x * TILESIZE, y * TILESIZE))
-                # update the display
-                pygame.display.update()
+    def draw_tile(self,x,y):
+        # draw the chosen cell
+        image_cell = SpriteSheet(SPRITESHEET_PATH).image_at(self.tile_set_coord[self.grid[y][x].options[0]],colorkey=(0,0,0))
+        self.ui_window.blit(image_cell, (x * TILESIZE, y * TILESIZE))
+        # update the display
+        pygame.display.update()
+        # time.sleep(0.001)
+
 

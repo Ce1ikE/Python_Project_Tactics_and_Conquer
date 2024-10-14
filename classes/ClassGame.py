@@ -22,9 +22,9 @@ class Game:
 
     def createMap(self):
         # wave grid (2D) array
-        grid = Grid(WORLD_X, WORLD_Y,tileRuleset)
+        grid = Grid(WORLD_X, WORLD_Y,tileRuleset,tileSprites,self.ui_window)
         grid.collapse_wave_function()
-        grid.display_grid(tileSprites,self.ui_window)
+        # grid.display_grid(tileSprites,self.ui_window)
         return 0
 
     def run(self):
@@ -72,7 +72,7 @@ class Game:
                 if self.map_state == 1:
                     self.map_state = self.createMap()
                     self.hud.drawHUD(self.ui_window)
-                self.hud_ui_manager.update()
+                self.hud_ui_manager.update(time_delta)
             # ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 
 

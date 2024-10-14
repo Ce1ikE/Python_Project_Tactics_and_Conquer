@@ -14,13 +14,16 @@ class Menu:
                                                  relative_rect=pygame.Rect((50,25),(100,50)),
                                                  manager=self.manager,container=self.ui_panel)                                           
         self.text_entry = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((50,80),(100,25)),
-                                                         manager=self.manager,placeholder_text="Username...",
+                                                         manager=self.manager,
+                                                         placeholder_text="Username...",
                                                          container=self.ui_panel)
         self.start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50,110),(100,25)),
                                                  text="Start",
+                                                 manager=self.manager,
                                                  container=self.ui_panel)
         self.quit_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50,140),(100,25)),
                                                  text="Quit",
+                                                 manager=self.manager,
                                                  container=self.ui_panel)
     def mainMenu(self,ui_window):
         self.manager.draw_ui(ui_window)      
