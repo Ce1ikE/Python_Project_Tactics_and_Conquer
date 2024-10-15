@@ -332,3 +332,131 @@ tileSprites = {
     TILE_WATER_SE   : [206,81,TILESIZE,TILESIZE],
     TILE_BLANK      : [223,81,TILESIZE,TILESIZE]
 }
+# Units stats and data in dictionaries
+LOW_ARMOR = 1
+MEDIUM_ARMOR = 3
+HIGH_ARMOR = 5
+LAND_TYPE = "land"
+WATER_TYPE = "water"
+AIR_TYPE = "air"
+
+
+INFANTRY = {
+    "Name": "infantry",
+    "movement": 3,
+    "range": 1,
+    "defense": LOW_ARMOR,
+    "type": LAND_TYPE
+}
+HEAVY_INFANTRY = {
+    "Name": "heavy infantry",
+    "movement": 2,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+TANK = {
+    "Name": "tank",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+MEDIUM_TANK = {
+    "Name": "medium tank",
+    "movement": 5,
+    "range": 1,
+    "defense": HIGH_ARMOR,
+    "type": LAND_TYPE
+}
+HEAVY_TANK = {
+    "Name": "heavy tank",
+    "movement": 6,
+    "range": 1,
+    "defense": HIGH_ARMOR,
+    "type": LAND_TYPE
+}
+ARTILLERY = {
+    "Name": "artillery",
+    "movement": 5,
+    "range": [2,3],
+    "defense": LOW_ARMOR,
+    "type": LAND_TYPE
+}
+HEAVY_ARTILLERY = {
+    "Name": "heavy artillery",
+    "movement": 5,
+    "range": [3,4,5],
+    "defense": LOW_ARMOR,
+    "type": LAND_TYPE
+}
+AA_TANK = {
+    "Name": "AA tank",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+APC = {
+    "Name": "APC",
+    "movement": 6,
+    "range": 0,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+SUBMARINE = {
+    "Name": "submarine",
+    "movement": 5,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": WATER_TYPE
+}
+DESTROYER = {
+    "Name": "destroyer",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": WATER_TYPE
+}
+LANDER = {
+    "Name": "lander",
+    "movement": 6,
+    "range": 0,
+    "defense": LOW_ARMOR,
+    "type": WATER_TYPE
+}
+CARRIER = {
+    "Name": "carrier",
+    "movement": 5,
+    "range": [3,4,5,6],
+    "defense": HIGH_ARMOR,
+    "type": WATER_TYPE
+}
+TRANSPORT_HELICOPTER = {
+    "Name": "transport helicopter",
+    "movement": 6,
+    "range": 0,
+    "defense": LOW_ARMOR,
+    "type": AIR_TYPE
+}
+COMBAT_HELICOPTER = {
+    "Name": "combat helicopter",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": AIR_TYPE
+}
+FIGHTER_JET = {
+    "Name": "fighter jet",
+    "movement": 9,
+    "range": 1,
+    "defense": HIGH_ARMOR,
+    "type": AIR_TYPE
+}
+BOMBER = {
+    "Name": "bomber",
+    "movement": 7,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": AIR_TYPE
+}
