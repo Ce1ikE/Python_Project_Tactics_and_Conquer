@@ -19,13 +19,16 @@ class Game:
         self.menu = Menu(self.menu_ui_manager)
         self.hud = HUD(self.hud_ui_manager)
         self.game_state = MENU
+        self.map_state = 0 
 
     def createMap(self):
         # wave grid (2D) array
-        grid = Grid(WORLD_X, WORLD_Y,tileRuleset,tileSprites,self.ui_window)
-        grid.collapse_wave_function()
-        # grid.display_grid(tileSprites,self.ui_window)
-        return 0
+        grid = Grid(WORLD_X, WORLD_Y,self.ui_window)
+        self.map_state = 0 
+        while self.map_state == 0:
+            result = grid.collapse_wave_function()
+            if result == False:
+                self.map_state = 1
 
     def run(self):
         # de "run" functie runt de game
@@ -53,7 +56,6 @@ class Game:
                     result = self.menu.handleMenuEvents(event)
                     if result == PLAYING:
                         self.game_state = PLAYING
-                        self.map_state = 1
                     elif result == QUIT:
                         pygame.quit()
                         sys.exit()
@@ -69,8 +71,8 @@ class Game:
                 self.menu.mainMenu(self.ui_window)
                 self.menu_ui_manager.update(time_delta)
             if self.game_state == PLAYING:
-                if self.map_state == 1:
-                    self.map_state = self.createMap()
+                if self.map_state == 0:
+                    self.createMap()
                     self.hud.drawHUD(self.ui_window)
                 self.hud_ui_manager.update(time_delta)
             # ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
