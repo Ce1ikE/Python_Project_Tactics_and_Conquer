@@ -92,211 +92,357 @@ COAST_S   = 6
 COAST_W   = 7
 ROAD_N    = 8
 ROAD_E    = 9
-ROAD_S    = 10
-ROAD_W    = 11
 
 # Tile Ruleset
 # Dictionary of all tile types and tile edges, on the directions [North, East, South, West]
+# tileRuleset = {
+#     TILE_GRASS     : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_GRASS,TILE_COAST_S,TILE_COAST_SE,TILE_COAST_SW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
+#             SOUTH :[TILE_GRASS,TILE_COAST_N,TILE_COAST_NE,TILE_COAST_NW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
+#             WEST  :[TILE_GRASS,TILE_COAST_E,TILE_COAST_SE,TILE_COAST_NE,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
+#             EAST  :[TILE_GRASS,TILE_COAST_W,TILE_COAST_SW,TILE_COAST_NW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
+#         }
+#     },
+#     TILE_WATER     : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_WATER,TILE_COAST_N,TILE_WATER_SE,TILE_WATER_SW],
+#             SOUTH :[TILE_WATER,TILE_COAST_S,TILE_WATER_NE,TILE_WATER_NW],
+#             WEST  :[TILE_WATER,TILE_COAST_W,TILE_WATER_SE,TILE_WATER_NE],
+#             EAST  :[TILE_WATER,TILE_COAST_E,TILE_WATER_SW,TILE_WATER_NW],
+#         }
+#     },
+#     TILE_FOREST    : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_GRASS,TILE_FOREST,TILE_ROAD_E,TILE_MOUNTAIN],
+#             SOUTH :[TILE_GRASS,TILE_FOREST,TILE_ROAD_E,TILE_MOUNTAIN],
+#             WEST  :[TILE_GRASS,TILE_FOREST,TILE_ROAD_N,TILE_MOUNTAIN],
+#             EAST  :[TILE_GRASS,TILE_FOREST,TILE_ROAD_N,TILE_MOUNTAIN],
+#         }
+#     },
+#     TILE_COAST_N   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_GRASS],
+#             SOUTH :[TILE_WATER],
+#             WEST  :[TILE_COAST_NW,TILE_COAST_N,TILE_WATER_SW],
+#             EAST  :[TILE_COAST_NE,TILE_COAST_N,TILE_WATER_SE],
+#         }
+#     },
+#     TILE_COAST_E   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_COAST_NE,TILE_COAST_E,TILE_WATER_NW],
+#             SOUTH :[TILE_COAST_SE,TILE_COAST_E,TILE_WATER_SW],
+#             WEST  :[TILE_WATER],
+#             EAST  :[TILE_GRASS],
+#         }
+#     },
+#     TILE_COAST_S   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_WATER],
+#             SOUTH :[TILE_GRASS],
+#             WEST  :[TILE_COAST_S,TILE_COAST_SW,TILE_WATER_NW],
+#             EAST  :[TILE_COAST_S,TILE_COAST_SE,TILE_WATER_NE],
+#         }
+#     },
+#     TILE_COAST_W   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_COAST_W,TILE_COAST_NW,TILE_WATER_NE],
+#             SOUTH :[TILE_COAST_W,TILE_COAST_SW,TILE_WATER_SE],
+#             WEST  :[TILE_GRASS],
+#             EAST  :[TILE_WATER],
+#         }
+#     },
+#     TILE_COAST_NE  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_GRASS],
+#             SOUTH :[TILE_COAST_E,TILE_WATER_SW],
+#             WEST  :[TILE_COAST_N,TILE_WATER_SW],
+#             EAST  :[TILE_GRASS],
+#         }
+#     },
+#     TILE_COAST_SE  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_COAST_E,TILE_WATER_NW],
+#             SOUTH :[TILE_GRASS],
+#             WEST  :[TILE_COAST_S,TILE_WATER_NW],
+#             EAST  :[TILE_GRASS],
+#         }
+#     },
+#     TILE_COAST_SW  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_COAST_W,TILE_WATER_NE],
+#             SOUTH :[TILE_GRASS],
+#             WEST  :[TILE_GRASS],
+#             EAST  :[TILE_COAST_S,TILE_WATER_NE],
+#         }
+#     },
+#     TILE_COAST_NW  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_GRASS],
+#             SOUTH :[TILE_COAST_W,TILE_WATER_SE],
+#             WEST  :[TILE_GRASS],
+#             EAST  :[TILE_COAST_N,TILE_WATER_SE],
+#         }
+#     },
+#     TILE_MOUNTAIN  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
+#             SOUTH :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
+#             WEST  :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
+#             EAST  :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
+#         }
+#     },
+#     TILE_ROAD_N    : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_ROAD_N,TILE_ROAD_NE,TILE_ROAD_NW,TILE_CITY],
+#             SOUTH :[TILE_ROAD_N,TILE_COAST_SE,TILE_COAST_SW,TILE_CITY],
+#             WEST  :[TILE_FOREST,TILE_GRASS],
+#             EAST  :[TILE_FOREST,TILE_GRASS],
+#         }
+#     },
+#     TILE_ROAD_E    : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_FOREST,TILE_GRASS],
+#             SOUTH :[TILE_FOREST,TILE_GRASS],
+#             WEST  :[TILE_ROAD_E,TILE_ROAD_SW,TILE_ROAD_NW,TILE_CITY],
+#             EAST  :[TILE_ROAD_E,TILE_ROAD_SE,TILE_ROAD_NE,TILE_CITY],
+#         }
+#     },
+#     TILE_ROAD_NE   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_FOREST],
+#             SOUTH :[TILE_ROAD_N],
+#             WEST  :[TILE_ROAD_E],
+#             EAST  :[TILE_FOREST],
+#         }
+#     },
+#     TILE_ROAD_SE   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_ROAD_N],
+#             SOUTH :[TILE_FOREST],
+#             WEST  :[TILE_ROAD_E],
+#             EAST  :[TILE_FOREST],
+#         }
+#     },
+#     TILE_ROAD_SW   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_ROAD_N],
+#             SOUTH :[TILE_FOREST],
+#             WEST  :[TILE_FOREST],
+#             EAST  :[TILE_ROAD_E],
+#         }
+#     },
+#     TILE_ROAD_NW   : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_FOREST],
+#             SOUTH :[TILE_ROAD_N],
+#             WEST  :[TILE_FOREST],
+#             EAST  :[TILE_ROAD_E],
+#         }
+#     },
+#     TILE_WATER_NW  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_WATER],
+#             SOUTH :[TILE_COAST_E,TILE_COAST_SE],
+#             WEST  :[TILE_WATER],
+#             EAST  :[TILE_COAST_S,TILE_COAST_SE],
+#         }
+#     },
+#     TILE_WATER_NE  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_WATER],
+#             SOUTH :[TILE_COAST_W,TILE_COAST_SW],
+#             WEST  :[TILE_COAST_S,TILE_COAST_SW],
+#             EAST  :[TILE_WATER],
+#         }
+#     },
+#     TILE_WATER_SW  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_COAST_E,TILE_COAST_NE],
+#             SOUTH :[TILE_WATER],
+#             WEST  :[TILE_WATER],
+#             EAST  :[TILE_COAST_N,TILE_COAST_NE],
+#         }
+#     },
+#     TILE_WATER_SE  : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_COAST_W,TILE_COAST_NW],
+#             SOUTH :[TILE_WATER],
+#             WEST  :[TILE_COAST_N,TILE_COAST_NW],
+#             EAST  :[TILE_WATER],
+#         }
+#     },
+#     TILE_CITY      : {
+#         "allowed_neighbors":{
+#             NORTH :[TILE_ROAD_E,TILE_GRASS],
+#             SOUTH :[TILE_ROAD_E,TILE_GRASS],
+#             WEST  :[TILE_ROAD_N,TILE_GRASS],
+#             EAST  :[TILE_ROAD_N,TILE_GRASS],
+#         }
+#     },
+#     TILE_BLANK     : {
+#         "allowed_neighbors":{
+#             NORTH :TileArray,
+#             SOUTH :TileArray,
+#             WEST  :TileArray,
+#             EAST  :TileArray,
+#         }
+#     },
+# }
+
 tileRuleset = {
     TILE_GRASS     : {
-        "allowed_neighbors":{
-            NORTH :[TILE_GRASS,TILE_COAST_S,TILE_COAST_SE,TILE_COAST_SW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-            SOUTH :[TILE_GRASS,TILE_COAST_N,TILE_COAST_NE,TILE_COAST_NW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-            WEST  :[TILE_GRASS,TILE_COAST_E,TILE_COAST_SE,TILE_COAST_NE,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-            EAST  :[TILE_GRASS,TILE_COAST_W,TILE_COAST_SW,TILE_COAST_NW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-        }
+            NORTH :[GRASS],
+            SOUTH :[GRASS],
+            WEST  :[GRASS],
+            EAST  :[GRASS],
     },
     TILE_WATER     : {
-        "allowed_neighbors":{
-            NORTH :[TILE_WATER,TILE_COAST_N,TILE_WATER_SE,TILE_WATER_SW],
-            SOUTH :[TILE_WATER,TILE_COAST_S,TILE_WATER_NE,TILE_WATER_NW],
-            WEST  :[TILE_WATER,TILE_COAST_W,TILE_WATER_SE,TILE_WATER_NE],
-            EAST  :[TILE_WATER,TILE_COAST_E,TILE_WATER_SW,TILE_WATER_NW],
-        }
+            NORTH :[TILE_WATER],
+            SOUTH :[TILE_WATER],
+            WEST  :[TILE_WATER],
+            EAST  :[TILE_WATER],
     },
     TILE_FOREST    : {
-        "allowed_neighbors":{
-            NORTH :[TILE_GRASS,TILE_FOREST,TILE_ROAD_E,TILE_MOUNTAIN],
-            SOUTH :[TILE_GRASS,TILE_FOREST,TILE_ROAD_E,TILE_MOUNTAIN],
-            WEST  :[TILE_GRASS,TILE_FOREST,TILE_ROAD_N,TILE_MOUNTAIN],
-            EAST  :[TILE_GRASS,TILE_FOREST,TILE_ROAD_N,TILE_MOUNTAIN],
-        }
+            NORTH :[GRASS,FOREST],
+            SOUTH :[GRASS,FOREST],
+            WEST  :[GRASS,FOREST],
+            EAST  :[GRASS,FOREST],
     },
     TILE_COAST_N   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_GRASS],
-            SOUTH :[TILE_WATER],
-            WEST  :[TILE_COAST_NW,TILE_COAST_N,TILE_WATER_SW],
-            EAST  :[TILE_COAST_NE,TILE_COAST_N,TILE_WATER_SE],
-        }
+            NORTH :[GRASS],
+            SOUTH :[WATER],
+            WEST  :[COAST_N],
+            EAST  :[COAST_N],
     },
     TILE_COAST_E   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_NE,TILE_COAST_E,TILE_WATER_NW],
-            SOUTH :[TILE_COAST_SE,TILE_COAST_E,TILE_WATER_SW],
-            WEST  :[TILE_WATER],
-            EAST  :[TILE_GRASS],
-        }
+            NORTH :[COAST_E],
+            SOUTH :[COAST_E],
+            WEST  :[WATER],
+            EAST  :[GRASS],
     },
     TILE_COAST_S   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_WATER],
-            SOUTH :[TILE_GRASS],
-            WEST  :[TILE_COAST_S,TILE_COAST_SE,TILE_WATER_NW],
-            EAST  :[TILE_COAST_S,TILE_COAST_SW,TILE_WATER_NE],
-        }
+            NORTH :[WATER],
+            SOUTH :[GRASS],
+            WEST  :[COAST_S],
+            EAST  :[COAST_S],
     },
     TILE_COAST_W   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_W,TILE_COAST_NW,TILE_WATER_NE],
-            SOUTH :[TILE_COAST_W,TILE_COAST_SW,TILE_WATER_SE],
-            WEST  :[TILE_GRASS],
-            EAST  :[TILE_WATER],
-        }
+            NORTH :[COAST_W],
+            SOUTH :[COAST_W],
+            WEST  :[GRASS],
+            EAST  :[WATER],
     },
     TILE_COAST_NE  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_GRASS],
-            SOUTH :[TILE_COAST_E,TILE_WATER_SW],
-            WEST  :[TILE_COAST_N,TILE_WATER_SW],
-            EAST  :[TILE_GRASS],
-        }
+            NORTH :[GRASS],
+            SOUTH :[COAST_E],
+            WEST  :[COAST_N],
+            EAST  :[GRASS],
     },
     TILE_COAST_SE  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_E,TILE_WATER_NW],
-            SOUTH :[TILE_GRASS],
-            WEST  :[TILE_COAST_S,TILE_WATER_NW],
-            EAST  :[TILE_GRASS],
-        }
+            NORTH :[COAST_E],
+            SOUTH :[GRASS],
+            WEST  :[COAST_S],
+            EAST  :[GRASS],
     },
     TILE_COAST_SW  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_W,TILE_WATER_NE],
-            SOUTH :[TILE_GRASS],
-            WEST  :[TILE_GRASS],
-            EAST  :[TILE_COAST_S,TILE_WATER_NE],
-        }
+            NORTH :[COAST_W],
+            SOUTH :[GRASS],
+            WEST  :[GRASS],
+            EAST  :[COAST_S],
     },
     TILE_COAST_NW  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_N,TILE_WATER_SE],
-            SOUTH :[TILE_COAST_W,TILE_WATER_SE],
-            WEST  :[TILE_GRASS],
-            EAST  :[TILE_GRASS],
-        }
+            NORTH :[GRASS],
+            SOUTH :[COAST_W],
+            WEST  :[GRASS],
+            EAST  :[COAST_N],
     },
     TILE_MOUNTAIN  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-            SOUTH :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-            WEST  :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-            EAST  :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-        }
+            NORTH :[MOUNTAIN,FOREST,GRASS],
+            SOUTH :[MOUNTAIN,FOREST,GRASS],
+            WEST  :[MOUNTAIN,FOREST,GRASS],
+            EAST  :[MOUNTAIN,FOREST,GRASS],
     },
     TILE_ROAD_N    : {
-        "allowed_neighbors":{
-            NORTH :[TILE_ROAD_N,TILE_ROAD_NE,TILE_ROAD_NW,TILE_CITY],
-            SOUTH :[TILE_ROAD_N,TILE_COAST_SE,TILE_COAST_SW,TILE_CITY],
-            WEST  :[TILE_FOREST,TILE_GRASS],
-            EAST  :[TILE_FOREST,TILE_GRASS],
-        }
+            NORTH :[ROAD_N],
+            SOUTH :[ROAD_N],
+            WEST  :[FOREST,GRASS,MOUNTAIN],
+            EAST  :[FOREST,GRASS,MOUNTAIN],
     },
     TILE_ROAD_E    : {
-        "allowed_neighbors":{
-            NORTH :[TILE_FOREST,TILE_GRASS],
-            SOUTH :[TILE_FOREST,TILE_GRASS],
-            WEST  :[TILE_ROAD_E,TILE_ROAD_SW,TILE_ROAD_NW,TILE_CITY],
-            EAST  :[TILE_ROAD_E,TILE_ROAD_SE,TILE_ROAD_NE,TILE_CITY],
-        }
+            NORTH :[FOREST,GRASS,MOUNTAIN],
+            SOUTH :[FOREST,GRASS,MOUNTAIN],
+            WEST  :[ROAD_E],
+            EAST  :[ROAD_E],
     },
     TILE_ROAD_NE   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_FOREST],
-            SOUTH :[TILE_ROAD_N],
-            WEST  :[TILE_ROAD_E],
-            EAST  :[TILE_FOREST],
-        }
+            NORTH :[GRASS,FOREST,MOUNTAIN],
+            SOUTH :[ROAD_N],
+            WEST  :[ROAD_E],
+            EAST  :[GRASS,FOREST,MOUNTAIN],
     },
     TILE_ROAD_SE   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_ROAD_N],
-            SOUTH :[TILE_FOREST],
-            WEST  :[TILE_ROAD_E],
-            EAST  :[TILE_FOREST],
-        }
+            NORTH :[ROAD_N],
+            SOUTH :[GRASS,FOREST,MOUNTAIN],
+            WEST  :[ROAD_E],
+            EAST  :[GRASS,FOREST,MOUNTAIN],
     },
     TILE_ROAD_SW   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_ROAD_N],
-            SOUTH :[TILE_FOREST],
-            WEST  :[TILE_FOREST],
-            EAST  :[TILE_ROAD_E],
-        }
+            NORTH :[ROAD_N],
+            SOUTH :[GRASS,FOREST,MOUNTAIN],
+            WEST  :[GRASS,FOREST,MOUNTAIN],
+            EAST  :[ROAD_E],
     },
     TILE_ROAD_NW   : {
-        "allowed_neighbors":{
-            NORTH :[TILE_FOREST],
-            SOUTH :[TILE_ROAD_N],
-            WEST  :[TILE_FOREST],
-            EAST  :[TILE_ROAD_E],
-        }
+            NORTH :[GRASS,FOREST,MOUNTAIN],
+            SOUTH :[ROAD_N],
+            WEST  :[GRASS,FOREST,MOUNTAIN],
+            EAST  :[ROAD_E],
     },
     TILE_WATER_NW  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_WATER],
-            SOUTH :[TILE_COAST_E,TILE_COAST_SE],
-            WEST  :[TILE_WATER],
-            EAST  :[TILE_COAST_S,TILE_COAST_SE],
-        }
+            NORTH :[WATER],
+            SOUTH :[COAST_S],
+            WEST  :[WATER],
+            EAST  :[COAST_E],
     },
     TILE_WATER_NE  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_WATER],
-            SOUTH :[TILE_COAST_W,TILE_COAST_SW],
-            WEST  :[TILE_COAST_S,TILE_COAST_SW],
-            EAST  :[TILE_WATER],
-        }
+            NORTH :[WATER],
+            SOUTH :[COAST_W],
+            WEST  :[COAST_S],
+            EAST  :[WATER],
     },
     TILE_WATER_SW  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_E,TILE_COAST_NE],
-            SOUTH :[TILE_WATER],
-            WEST  :[TILE_WATER],
-            EAST  :[TILE_COAST_N,TILE_COAST_NE],
-        }
+            NORTH :[COAST_E],
+            SOUTH :[WATER],
+            WEST  :[WATER],
+            EAST  :[COAST_N],
     },
     TILE_WATER_SE  : {
-        "allowed_neighbors":{
-            NORTH :[TILE_COAST_W,TILE_COAST_NW],
-            SOUTH :[TILE_WATER],
-            WEST  :[TILE_COAST_N,TILE_COAST_NW],
-            EAST  :[TILE_WATER],
-        }
+            NORTH :[COAST_W],
+            SOUTH :[WATER],
+            WEST  :[COAST_N],
+            EAST  :[WATER],
     },
     TILE_CITY      : {
-        "allowed_neighbors":{
             NORTH :[TILE_ROAD_E,TILE_GRASS],
             SOUTH :[TILE_ROAD_E,TILE_GRASS],
             WEST  :[TILE_ROAD_N,TILE_GRASS],
             EAST  :[TILE_ROAD_N,TILE_GRASS],
-        }
     },
     TILE_BLANK     : {
-        "allowed_neighbors":{
-            NORTH :TileArray,
-            SOUTH :TileArray,
-            WEST  :TileArray,
-            EAST  :TileArray,
-        }
+            NORTH :[100],
+            SOUTH :[100],
+            WEST  :[100],
+            EAST  :[100],
     },
 }
+
 
 # Tile Weight
 # Dictionary of all tile probability
 tileWeights = {
     TILE_GRASS      : 15,
-    TILE_WATER      : 7,
+    TILE_WATER      : 10,
     TILE_FOREST     : 10,
     TILE_COAST_N    : 5,
     TILE_COAST_E    : 5,

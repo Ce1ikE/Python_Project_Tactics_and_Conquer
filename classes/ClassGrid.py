@@ -12,13 +12,13 @@ class Grid:
         self.tile_set_coord = tile_set_coord
         self.ui_window = ui_window
         self.grid = [[Cell(list(tile_set.keys())) for _ in range(width)] for _ in range(height)]
-        # self.plant_seeds()
+        self.plant_seeds()
 
     def plant_seeds(self):
         for y in range(self.height):
             for x in range(self.width):
                 if x == 0 or y == 0 or y == self.height - 1 or x == self.width - 1:
-                    self.grid[y][x].options = [TILE_FOREST]
+                    self.grid[y][x].options = [TILE_WATER]
                     self.grid[y][x].collapsed = True
                     self.grid[y][x].entropy = 0
                     self.draw_tile(x,y)
@@ -36,18 +36,24 @@ class Grid:
             neighbors[EAST] = (y, x + 1)
         return neighbors
     
-    def propagate(self, x, y):
+    def propagate(self, x, y,level=0):
         current_tile = self.grid[y][x].options[0]  # Collapsed cell's tile
         neighbors = self.get_neighbors(x, y)
-        
+        allowed_tiles = []
         for direction, (ny, nx) in neighbors.items():
             if not self.grid[ny][nx].is_collapsed():
-                allowed_tiles = self.tile_set[current_tile]["allowed_neighbors"][direction]
-                # allowed_tiles = [
-                #     tile for tile in self.grid[ny][nx].options 
-                #     if current_tile in self.tile_set[tile]["allowed_neighbors"][direction]
-                # ]
+                
+                if direction == NORTH: opposite = SOUTH
+                if direction == SOUTH: opposite = NORTH
+                if direction == WEST : opposite = EAST
+                if direction == EAST : opposite = WEST
+
+                for i in range(len(self.tile_set) - 1):
+                    if self.tile_set[i][opposite]  in self.tile_set[current_tile][direction]:
+                        allowed_tiles.append(self.tile_set[i])
                 self.grid[ny][nx].reduce_options(allowed_tiles,x,y)
+                # if level < 1:
+                #     self.propagate(nx,ny,1)
 
     def find_lowest_entropy_cell(self):
         min_entropy = float('inf')
@@ -60,6 +66,7 @@ class Grid:
         return chosen_cell
 
     def collapse_wave_function(self):
+        previous_grid_state = []
         while not all(cell.is_collapsed() for row in self.grid for cell in row):
             # Step 1: Find the cell with the lowest entropy
             chosen_cell = self.find_lowest_entropy_cell()
@@ -67,12 +74,37 @@ class Grid:
                 break
             x, y = chosen_cell
 
-            # Step 2: Collapse the chosen cell
+            # Step 2: Copy current grid state to a history (which a copy in order to revert back)
+            previous_grid_state.append([[cell for cell in row] for row in self.grid])
+
+            # Step 3: Collapse the chosen cell
             self.grid[y][x].collapse()
             self.draw_tile(x,y)
             
-            # Step 3: Propagate the constraints to neighbors
+            # Step 4: Propagate the constraints to neighbors
             self.propagate(x, y)
+
+            # Step 5: Check for contradictions
+            if self.check_contradiction():
+                # Step 6: On contradiction back track
+                self.grid = previous_grid_state.pop()
+            if self.has_low_entropy():
+                self.grid = previous_grid_state.pop()
+
+    def check_contradiction(self):
+        for row in self.grid:
+            for cell in row:
+                # Makes sense because how can a cell be collapse but have no options ?!
+                if not cell.is_collapsed() and len(cell.options) == 0:
+                    return True
+        return False
+    
+    def has_low_entropy(self, threshold=2):
+        for row in self.grid:
+            for cell in row:
+                if not cell.is_collapsed() and cell.entropy < threshold:
+                    return True
+        return False
 
     def draw_tile(self,x,y):
         # draw the chosen cell
@@ -80,6 +112,7 @@ class Grid:
         self.ui_window.blit(image_cell, (x * TILESIZE, y * TILESIZE))
         # update the display
         pygame.display.update()
+        # debugging and nic look (asthetic)
         # time.sleep(0.001)
 
 
