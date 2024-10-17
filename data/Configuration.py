@@ -119,201 +119,6 @@ ROAD_E    = 13
 
 # Tile Ruleset
 # Dictionary of all tile types and tile edges, on the directions [North, East, South, West]
-# tileRuleset = {
-#     TILE_GRASS     : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_GRASS,TILE_COAST_S,TILE_COAST_SE,TILE_COAST_SW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-#             SOUTH :[TILE_GRASS,TILE_COAST_N,TILE_COAST_NE,TILE_COAST_NW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-#             WEST  :[TILE_GRASS,TILE_COAST_E,TILE_COAST_SE,TILE_COAST_NE,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-#             EAST  :[TILE_GRASS,TILE_COAST_W,TILE_COAST_SW,TILE_COAST_NW,TILE_FOREST,TILE_MOUNTAIN,TILE_CITY],
-#         }
-#     },
-#     TILE_WATER     : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_WATER,TILE_COAST_N,TILE_WATER_SE,TILE_WATER_SW],
-#             SOUTH :[TILE_WATER,TILE_COAST_S,TILE_WATER_NE,TILE_WATER_NW],
-#             WEST  :[TILE_WATER,TILE_COAST_W,TILE_WATER_SE,TILE_WATER_NE],
-#             EAST  :[TILE_WATER,TILE_COAST_E,TILE_WATER_SW,TILE_WATER_NW],
-#         }
-#     },
-#     TILE_FOREST    : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_GRASS,TILE_FOREST,TILE_ROAD_E,TILE_MOUNTAIN],
-#             SOUTH :[TILE_GRASS,TILE_FOREST,TILE_ROAD_E,TILE_MOUNTAIN],
-#             WEST  :[TILE_GRASS,TILE_FOREST,TILE_ROAD_N,TILE_MOUNTAIN],
-#             EAST  :[TILE_GRASS,TILE_FOREST,TILE_ROAD_N,TILE_MOUNTAIN],
-#         }
-#     },
-#     TILE_COAST_N   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_GRASS],
-#             SOUTH :[TILE_WATER],
-#             WEST  :[TILE_COAST_NW,TILE_COAST_N,TILE_WATER_SW],
-#             EAST  :[TILE_COAST_NE,TILE_COAST_N,TILE_WATER_SE],
-#         }
-#     },
-#     TILE_COAST_E   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_COAST_NE,TILE_COAST_E,TILE_WATER_NW],
-#             SOUTH :[TILE_COAST_SE,TILE_COAST_E,TILE_WATER_SW],
-#             WEST  :[TILE_WATER],
-#             EAST  :[TILE_GRASS],
-#         }
-#     },
-#     TILE_COAST_S   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_WATER],
-#             SOUTH :[TILE_GRASS],
-#             WEST  :[TILE_COAST_S,TILE_COAST_SW,TILE_WATER_NW],
-#             EAST  :[TILE_COAST_S,TILE_COAST_SE,TILE_WATER_NE],
-#         }
-#     },
-#     TILE_COAST_W   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_COAST_W,TILE_COAST_NW,TILE_WATER_NE],
-#             SOUTH :[TILE_COAST_W,TILE_COAST_SW,TILE_WATER_SE],
-#             WEST  :[TILE_GRASS],
-#             EAST  :[TILE_WATER],
-#         }
-#     },
-#     TILE_COAST_NE  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_GRASS],
-#             SOUTH :[TILE_COAST_E,TILE_WATER_SW],
-#             WEST  :[TILE_COAST_N,TILE_WATER_SW],
-#             EAST  :[TILE_GRASS],
-#         }
-#     },
-#     TILE_COAST_SE  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_COAST_E,TILE_WATER_NW],
-#             SOUTH :[TILE_GRASS],
-#             WEST  :[TILE_COAST_S,TILE_WATER_NW],
-#             EAST  :[TILE_GRASS],
-#         }
-#     },
-#     TILE_COAST_SW  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_COAST_W,TILE_WATER_NE],
-#             SOUTH :[TILE_GRASS],
-#             WEST  :[TILE_GRASS],
-#             EAST  :[TILE_COAST_S,TILE_WATER_NE],
-#         }
-#     },
-#     TILE_COAST_NW  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_GRASS],
-#             SOUTH :[TILE_COAST_W,TILE_WATER_SE],
-#             WEST  :[TILE_GRASS],
-#             EAST  :[TILE_COAST_N,TILE_WATER_SE],
-#         }
-#     },
-#     TILE_MOUNTAIN  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-#             SOUTH :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-#             WEST  :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-#             EAST  :[TILE_MOUNTAIN,TILE_GRASS,TILE_FOREST],
-#         }
-#     },
-#     TILE_ROAD_N    : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_ROAD_N,TILE_ROAD_NE,TILE_ROAD_NW,TILE_CITY],
-#             SOUTH :[TILE_ROAD_N,TILE_COAST_SE,TILE_COAST_SW,TILE_CITY],
-#             WEST  :[TILE_FOREST,TILE_GRASS],
-#             EAST  :[TILE_FOREST,TILE_GRASS],
-#         }
-#     },
-#     TILE_ROAD_E    : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_FOREST,TILE_GRASS],
-#             SOUTH :[TILE_FOREST,TILE_GRASS],
-#             WEST  :[TILE_ROAD_E,TILE_ROAD_SW,TILE_ROAD_NW,TILE_CITY],
-#             EAST  :[TILE_ROAD_E,TILE_ROAD_SE,TILE_ROAD_NE,TILE_CITY],
-#         }
-#     },
-#     TILE_ROAD_NE   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_FOREST],
-#             SOUTH :[TILE_ROAD_N],
-#             WEST  :[TILE_ROAD_E],
-#             EAST  :[TILE_FOREST],
-#         }
-#     },
-#     TILE_ROAD_SE   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_ROAD_N],
-#             SOUTH :[TILE_FOREST],
-#             WEST  :[TILE_ROAD_E],
-#             EAST  :[TILE_FOREST],
-#         }
-#     },
-#     TILE_ROAD_SW   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_ROAD_N],
-#             SOUTH :[TILE_FOREST],
-#             WEST  :[TILE_FOREST],
-#             EAST  :[TILE_ROAD_E],
-#         }
-#     },
-#     TILE_ROAD_NW   : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_FOREST],
-#             SOUTH :[TILE_ROAD_N],
-#             WEST  :[TILE_FOREST],
-#             EAST  :[TILE_ROAD_E],
-#         }
-#     },
-#     TILE_WATER_NW  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_WATER],
-#             SOUTH :[TILE_COAST_E,TILE_COAST_SE],
-#             WEST  :[TILE_WATER],
-#             EAST  :[TILE_COAST_S,TILE_COAST_SE],
-#         }
-#     },
-#     TILE_WATER_NE  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_WATER],
-#             SOUTH :[TILE_COAST_W,TILE_COAST_SW],
-#             WEST  :[TILE_COAST_S,TILE_COAST_SW],
-#             EAST  :[TILE_WATER],
-#         }
-#     },
-#     TILE_WATER_SW  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_COAST_E,TILE_COAST_NE],
-#             SOUTH :[TILE_WATER],
-#             WEST  :[TILE_WATER],
-#             EAST  :[TILE_COAST_N,TILE_COAST_NE],
-#         }
-#     },
-#     TILE_WATER_SE  : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_COAST_W,TILE_COAST_NW],
-#             SOUTH :[TILE_WATER],
-#             WEST  :[TILE_COAST_N,TILE_COAST_NW],
-#             EAST  :[TILE_WATER],
-#         }
-#     },
-#     TILE_CITY      : {
-#         "allowed_neighbors":{
-#             NORTH :[TILE_ROAD_E,TILE_GRASS],
-#             SOUTH :[TILE_ROAD_E,TILE_GRASS],
-#             WEST  :[TILE_ROAD_N,TILE_GRASS],
-#             EAST  :[TILE_ROAD_N,TILE_GRASS],
-#         }
-#     },
-#     TILE_BLANK     : {
-#         "allowed_neighbors":{
-#             NORTH :TileArray,
-#             SOUTH :TileArray,
-#             WEST  :TileArray,
-#             EAST  :TileArray,
-#         }
-#     },
-# }
-
 tileRuleset = {
     TILE_GRASS     : [GRASS, GRASS, GRASS, GRASS],
     TILE_WATER     : [WATER, WATER, WATER, WATER],
@@ -365,7 +170,7 @@ tileRuleset = {
 # Tile Weight
 # Dictionary of all tile probability
 tileWeights = {
-    TILE_GRASS      : 15,
+    TILE_GRASS      : 20,
     TILE_WATER      : 10,
     TILE_FOREST     : 15,
     TILE_COAST_N    : 3,
@@ -400,6 +205,45 @@ tileWeights = {
     TILE_CITY       : 5,
     TILE_BLANK      : 1,
 }
+
+# tileWeights_Water = {
+#     TILE_GRASS      : 2,
+#     TILE_WATER      : 10,
+#     TILE_FOREST     : 0,
+#     TILE_COAST_N    : 3,
+#     TILE_COAST_E    : 3,
+#     TILE_COAST_S    : 3,
+#     TILE_COAST_W    : 3,
+#     TILE_COAST_NE   : 3,
+#     TILE_COAST_SE   : 3,
+#     TILE_COAST_SW   : 3,
+#     TILE_COAST_NW   : 3,
+#     TILE_MOUNTAIN   : 3,
+#     TILE_ROAD_N     : 0,
+#     TILE_ROAD_E     : 0,
+#     TILE_ROAD_NE    : 0,
+#     TILE_ROAD_SE    : 0,
+#     TILE_ROAD_SW    : 0,
+#     TILE_ROAD_NW    : 0,
+#     TILE_WATER_NW   : 3,
+#     TILE_WATER_NE   : 3,
+#     TILE_WATER_SW   : 3,
+#     TILE_WATER_SE   : 3,
+#     TILE_FOREST_N   : 0, 
+#     TILE_FOREST_S   : 0,  
+#     TILE_FOREST_W   : 0, 
+#     TILE_FOREST_E   : 0, 
+#     TILE_FOREST_NE  : 0, 
+#     TILE_FOREST_SE  : 0, 
+#     TILE_FOREST_NW  : 0, 
+#     TILE_FOREST_SW  : 0, 
+#     TILE_MOUTAIN_SW : 0,
+#     TILE_MOUTAIN_N  : 0,
+#     TILE_CITY       : 0,
+#     TILE_BLANK      : 1,
+# }
+
+
 # Tile Spritesheet aka Tile coordinates (coord_x,coord_y,TILESIZE,TILESIZE)
 # Dictionary of all tile coordinates on the SPRITESHEET_PATH
 tileSprites = {

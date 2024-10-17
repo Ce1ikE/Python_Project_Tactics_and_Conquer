@@ -8,7 +8,6 @@
         }
     },
 
-
     "button": {
         "colours": {
             "normal_border": "White",
@@ -33,14 +32,17 @@
         },
         "misc": {
             "shape": "rounded_rectangle",
-            "padding": "25 10",
-            "shape_corner_radius": "25",
+            "padding": "10",
+            "shape_corner_radius": "5",
             "border_width": "3"
         }
     },
 
     
     "text_entry": {
+        "colours":{
+            "dark_bg": "#fff"
+        },
         "font": {
             "name": "Greybeard"
         },
@@ -57,9 +59,11 @@
         "colours":{
             "normal_border": "#C7253E"
         },
-        "background_image": {
-            "path": "./assets/jpg/Panel_Background_1.jpeg",
-            "sub_surface_rect": "0,200,735,700"
+        "images": {
+            "background_image": {
+                "path": "./assets/jpg/Panel_Background_1.jpeg",
+                "sub_surface_rect": "0,200,735,700"
+            }
         },
         "misc": {
             "shape": "rectangle",

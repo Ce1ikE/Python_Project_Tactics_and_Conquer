@@ -12,21 +12,21 @@ class Grid:
         self.ui_window = ui_window
         # Each cell is initialized with the tile "ruleset" (all possible tiles) and it's neigbouring tiles
         self.grid = [[Cell(list(tileRuleset.keys()),x,y) for x in range(width)] for y in range(height)]
-        self.plant_seeds()
+        # self.plant_seeds()
 
         for y in range(self.rows):
             for x in range(self.cols):
                 cell = self.grid[y][x]
                 cell.neighbours = self.get_neighbours(x,y)
 
-    def plant_seeds(self):
-        for y in range(self.rows):
-            for x in range(self.cols):
-                if x == 0 or y == 0 or y == self.rows - 1 or x == self.cols - 1:
-                    self.grid[y][x].options = [TILE_WATER]
-                    self.grid[y][x].entropy = 0
-                    self.draw_tile(x,y)
-                    self.grid[y][x].reduce_options(self.grid[y][x].options,)
+    # def plant_seeds(self):
+    #     for y in range(self.rows):
+    #         for x in range(self.cols):
+    #             if x == 0 or y == 0 or y == self.rows - 1 or x == self.cols - 1:
+    #                 self.grid[y][x].options = [TILE_WATER]
+    #                 self.grid[y][x].entropy = 0
+    #                 self.draw_tile(x,y)
+    #                 self.grid[y][x].reduce_options(self.grid[y][x].options,)
 
     def draw_tile(self,x,y):
         # draw the chosen cell

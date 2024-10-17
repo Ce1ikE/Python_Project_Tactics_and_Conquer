@@ -11,9 +11,9 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("tactics & Conquer")
+        self.ui_window = pygame.display.set_mode((WIN_X,WIN_Y))
         self.hud_ui_manager = pygame_gui.UIManager((WIN_X,WIN_Y),"./data/theme.json")
         self.menu_ui_manager = pygame_gui.UIManager((WIN_X,WIN_Y),"./data/theme.json")
-        self.ui_window = pygame.display.set_mode((WIN_X,WIN_Y))
         self.clock = pygame.time.Clock()
          # "Menu" wordt getekent door "pygame_gui" dus moeten we een UIManager object doorgeven zodat we op het juiste vlak tekenen
         self.menu = Menu(self.menu_ui_manager)
