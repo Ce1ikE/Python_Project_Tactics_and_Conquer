@@ -1,3 +1,6 @@
 
 *.pyc
 .vscode/launch.json
+*.tmx
+assets/png/GBA_AW_Tiles - kopie.png
+debug.py
