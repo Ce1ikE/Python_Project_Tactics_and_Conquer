@@ -10,11 +10,11 @@ class Cursor:
     def __init__(self,x,y):
         self.X = x
         self.Y = y
-        self.cursor_IMG = pygame.image.load("./assets/png/cursor.png")
+        self.cursor_IMG = pygame.image.load("./assets/png/cursor+attack.png")
 
     def showCursor(self,surface):
-        print("showed cursor")
-        print((self.X * 16, self.Y * 16))
+        #print("showed cursor")
+        #print((self.X * 16, self.Y * 16))
         surface.blit(self.cursor_IMG, (self.X * TILESIZE, self.Y * TILESIZE))
 
     def hideCursor():

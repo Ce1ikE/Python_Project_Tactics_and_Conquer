@@ -8,5 +8,7 @@ from classes.ClassMenu import Menu
 from data.Configuration import *
 #Game().createMap()
 
-test = unit(INFANTRY,0, 0)
-print(test)
+team1 = unit(INFANTRY,0,0,1)
+team2 = unit(INFANTRY,1,0,2)
+
+team1.attack(team2)
