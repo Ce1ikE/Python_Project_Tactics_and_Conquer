@@ -10,7 +10,7 @@ class Cursor:
     def __init__(self,x,y):
         self.X = x
         self.Y = y
-        self.cursor_IMG = pygame.image.load("./assets/png/cursor.png")
+        self.cursor_IMG = pygame.image.load("./assets/png/cursor+attack.png")
 
     def showCursor(self,surface):
         print("showed cursor")

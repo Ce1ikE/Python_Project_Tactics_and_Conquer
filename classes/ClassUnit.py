@@ -17,7 +17,7 @@ class unit:
         self.team = team
         self.active = True
         self.health = 10
-        self.Unit_IMG = pygame.image.load("./assets/png/unit.png")
+        self.Unit_IMG = pygame.image.load("./assets/png/cursor+default.png")
 
     def Spawn(self,surface):
        #print("unit spawned")
@@ -34,7 +34,7 @@ class unit:
                 print("unit to far to attack")
             else:
                 print("enemy will be attacked")
-                enemy.health -= damage
+                enemy.health -= 10
     def die():
         print("this function runs when a unit dies and is removed from screen")
 
