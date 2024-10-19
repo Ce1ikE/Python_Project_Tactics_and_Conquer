@@ -6,7 +6,7 @@ class unit:
 
 
 
-    def __init__(self,UnitData: dict, x,y):
+    def __init__(self,UnitData: dict, x,y,team):
         self.name = UnitData.get("Name")
         self.movement = UnitData.get("movement")
         self.range = UnitData.get("range")
@@ -14,14 +14,27 @@ class unit:
         self.type = UnitData.get("type")
         self.x= x
         self.y = y
+        self.team = team
+        self.active = True
+        self.health = 10
+        self.Unit_IMG = pygame.image.load("./assets/png/unit.png")
 
+    def Spawn(self,surface):
+       #print("unit spawned")
+        #print((self.x * TILESIZE, self.y * TILESIZE))
+        surface.blit(self.Unit_IMG, (self.x * TILESIZE, self.y * TILESIZE))
 
-    def Spawn():
-        print("spawns unit and maintains unit")
+    def attack(self, enemy: 'unit'):
+        if self.team == enemy.team:
+            print("friendly fire")
+        else:
+            # if check if x or y coordinate is to far do know how to check diagonally
+            if abs(self.x - enemy.x) > self.range or abs(self.y - enemy.y) > self.range:
 
-    def attack(enemy: 'unit'):
-        print("this unit will attack the {enemy} in this function")
-
+                print("unit to far to attack")
+            else:
+                print("enemy will be attacked")
+                enemy.health -= damage
     def die():
         print("this function runs when a unit dies and is removed from screen")
 

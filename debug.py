@@ -13,7 +13,7 @@ class Tile(pygame.sprite.Sprite):
 
 pygame.init()
 screen = pygame.display.set_mode((1280,720))
-tmx_data = load_pygame('./assets/Debug_map/Debug_map.tmx')
+tmx_data = load_pygame('./assets/debug_map/Debug_map.tmx')
 sprite_group = pygame.sprite.Group()
 Cursor = Cursor(1,1)
 unit = unit(INFANTRY,2,3,1)
