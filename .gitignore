@@ -1,9 +1,2 @@
 
 *.pyc
-.vscode/launch.json
-*.tmx
-assets/png/cursor.png
-assets/png/GBA_AW_Tiles - kopie.png
-assets/png/unit.png
-*.pyc
-debug.py

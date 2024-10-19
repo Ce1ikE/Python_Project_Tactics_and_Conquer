@@ -4,7 +4,7 @@ class SpriteSheet:
 
     def __init__(self,filename):
         try:
-            self.sheet = pygame.image.load(filename).convert_alpha()
+            self.sheet = pygame.image.load(filename).convert()
         except pygame.error as e:
             print(f"Unable to load spritesheet image: {filename}")
             raise SystemExit(e)
@@ -12,7 +12,7 @@ class SpriteSheet:
 
     def image_at(self,rectangle,colorkey = None):
         rect = pygame.Rect(rectangle)
-        image = pygame.Surface(rect.size,pygame.SRCALPHA).convert_alpha()
+        image = pygame.Surface(rect.size,pygame.SRCALPHA).convert()
         image.fill((0, 0, 0, 0))
         image.blit(self.sheet,(0,0),rect)
         if colorkey is not None:
@@ -22,5 +22,4 @@ class SpriteSheet:
         return image
 
     def images_at(self, rects, colorkey = None):
-
         return [self.image_at(rect, colorkey) for rect in rects]

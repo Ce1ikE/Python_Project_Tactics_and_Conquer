@@ -1,79 +1,104 @@
 import pygame
+import random
+from classes.ClassStack import Stack
 from classes.ClassCell import Cell
 from classes.ClassSpritesheet import SpriteSheet
 from data.Configuration import *
 
 class Grid:
-    def __init__(self, width, height, tile_set):
-        self.width = width
-        self.height = height
-        self.tile_set = tile_set  # Dictionary of tile data (neighbors etc.)
-        self.grid = [[Cell(list(tile_set.keys())) for _ in range(width)] for _ in range(height)]
-        self.plant_seeds()
+    def __init__(self, width, height,ui_window):
+        self.cols = width
+        self.rows = height
+        self.ui_window = ui_window
+        # Each cell is initialized with the tile "ruleset" (all possible tiles) and it's neigbouring tiles
+        self.grid = [[Cell(list(tileRuleset.keys()),x,y) for x in range(width)] for y in range(height)]
+        # self.plant_seeds()
 
-    def plant_seeds(self):
-        for y in range(self.height):
-            for x in range(self.width):
-                if x == 0 or y == 0 or y == self.height - 1 or x == self.width - 1:
-                    self.grid[y][x].options = [TILE_MOUNTAIN]
-                    self.grid[y][x].collapsed = True
-                    self.grid[y][x].entropy = 0
-                    self.propagate(x,y)
+        for y in range(self.rows):
+            for x in range(self.cols):
+                cell = self.grid[y][x]
+                cell.neighbours = self.get_neighbours(x,y)
+
+    # def plant_seeds(self):
+    #     for y in range(self.rows):
+    #         for x in range(self.cols):
+    #             if x == 0 or y == 0 or y == self.rows - 1 or x == self.cols - 1:
+    #                 self.grid[y][x].options = [TILE_WATER]
+    #                 self.grid[y][x].entropy = 0
+    #                 self.draw_tile(x,y)
+    #                 self.grid[y][x].reduce_options(self.grid[y][x].options,)
+
+    def draw_tile(self,x,y):
+        # draw the chosen cell
+        image_cell = SpriteSheet(SPRITESHEET_PATH).image_at(tileSprites[self.grid[y][x].options[0]])
+        image_cell = pygame.transform.scale_by(image_cell,SCALETILE)
+        self.ui_window.blit(image_cell, (x * TILESIZE, y * TILESIZE))
+        # update the display
+        pygame.display.update()
     
-    def get_neighbors(self, x, y):
-        neighbors = {}
-        if y > 0:  # Up
-            neighbors[NORTH] = (y - 1, x)
-        if y < self.height - 1:  # Down
-            neighbors[SOUTH] = (y + 1, x)
+    def get_neighbours(self, x, y):
+        neighbours = {}
+        if y > 0:  # Up 
+            neighbours[NORTH] = self.grid[y - 1][x]
+        if y < self.rows - 1:  # Down
+            neighbours[SOUTH] = self.grid[y + 1][x]
         if x > 0:  # Left
-            neighbors[WEST] = (y, x - 1)
-        if x < self.width - 1:  # Right
-            neighbors[EAST] = (y, x + 1)
-        return neighbors
+            neighbours[WEST] = self.grid[y][x - 1]
+        if x < self.cols - 1:  # Right
+            neighbours[EAST] = self.grid[y][x + 1]
+        return neighbours
     
-    def propagate(self, x, y):
-        current_tile = self.grid[y][x].options[0]  # Collapsed cell's tile
-        neighbors = self.get_neighbors(x, y)
-        
-        for direction, (ny, nx) in neighbors.items():
-            if not self.grid[ny][nx].is_collapsed():
-                allowed_tiles = self.tile_set[current_tile]["allowed_neighbors"][direction]
-                # allowed_tiles = [
-                #     tile for tile in self.grid[ny][nx].options 
-                #     if current_tile in self.tile_set[tile]["allowed_neighbors"][direction]
-                # ]
-                self.grid[ny][nx].reduce_options(allowed_tiles,x,y)
 
-    def find_lowest_entropy_cell(self):
-        min_entropy = float('inf')
-        chosen_cell = None
-        for y in range(self.height):
-            for x in range(self.width):
-                if not self.grid[y][x].is_collapsed() and self.grid[y][x].entropy < min_entropy:
-                    min_entropy = self.grid[y][x].entropy
-                    chosen_cell = (x, y)
-        return chosen_cell
+    def get_Lowest_Entropy(self):
+        lowest_Entropy = len(list(tileRuleset.keys()))
+        for y in range(self.rows):
+            for x in range(self.cols):
+                tile_entropy = self.grid[y][x].entropy
+                if tile_entropy > 0:
+                    if tile_entropy < lowest_Entropy:
+                        lowest_Entropy = tile_entropy
+        return lowest_Entropy
+    
+    def get_Tiles_Lowest_Entropy(self):
+        lowest_Entropy = len(list(tileRuleset.keys()))
+        tile_List = []
+
+        for y in range(self.rows):
+            for x in range(self.cols):
+                tile_entropy = self.grid[y][x].entropy
+                if tile_entropy > 0:
+                    if tile_entropy < lowest_Entropy:
+                        tile_List.clear()
+                        lowest_Entropy = tile_entropy
+                        tile_List.append(self.grid[y][x])
+                    if tile_entropy == lowest_Entropy:
+                        tile_List.append(self.grid[y][x])
+        return tile_List
 
     def collapse_wave_function(self):
-        while not all(cell.is_collapsed() for row in self.grid for cell in row):
-            # Step 1: Find the cell with the lowest entropy
-            chosen_cell = self.find_lowest_entropy_cell()
-            if not chosen_cell:
-                break
-            x, y = chosen_cell
+        # We need to recall upon this function a few times because otherwise the game does not respond
+        tiles_Lowest_Entropy = self.get_Tiles_Lowest_Entropy()
 
-            # Step 2: Collapse the chosen cell
-            self.grid[y][x].collapse()
-            
-            # Step 3: Propagate the constraints to neighbors
-            self.propagate(x, y)
+        if tiles_Lowest_Entropy == []:
+            return False
+        
+        tile_chosen = random.choice(tiles_Lowest_Entropy)
+        tile_chosen.collapse()
+        self.draw_tile(tile_chosen.pos_x,tile_chosen.pos_y)
 
-    def display_grid(self,tile_set_coord,display):
-        for y in range(self.height):
-            for x in range(self.width):
-                image_cell = SpriteSheet(SPRITESHEET_PATH).image_at(tile_set_coord[self.grid[y][x].options[0]])
-                display.blit(image_cell, (x * TILESIZE, y * TILESIZE))
-                # update the display
-                pygame.display.update()
+        stack = Stack()
+        stack.push(tile_chosen)
+
+        while stack.is_empty() == False:
+            tile = stack.pop()
+            for direction in list(tile.neighbours.keys()):
+                if tile.neighbours[direction].entropy != 0:
+                    reduced = tile.neighbours[direction].reduce_options(tile.options,direction)
+                    if reduced == True:
+                        stack.push(tile.neighbours[direction])
+
+
+        return True
+    
+
 
