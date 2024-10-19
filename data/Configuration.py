@@ -247,6 +247,159 @@ tileWeights = {
 # Tile Spritesheet aka Tile coordinates (coord_x,coord_y,TILESIZE,TILESIZE)
 # Dictionary of all tile coordinates on the SPRITESHEET_PATH
 tileSprites = {
+    TILE_GRASS      : [2,13,TILESIZE,TILESIZE],
+    TILE_WATER      : [19,128,TILESIZE,TILESIZE],
+    TILE_FOREST     : [19,13,TILESIZE,TILESIZE],
+    TILE_COAST_N    : [223,128,TILESIZE,TILESIZE],
+    TILE_COAST_E    : [240,145,TILESIZE,TILESIZE],
+    TILE_COAST_S    : [223,162,TILESIZE,TILESIZE],
+    TILE_COAST_W    : [206,145,TILESIZE,TILESIZE],
+    TILE_COAST_NE   : [240,128,TILESIZE,TILESIZE],
+    TILE_COAST_SE   : [240,162,TILESIZE,TILESIZE],
+    TILE_COAST_SW   : [206,162,TILESIZE,TILESIZE],
+    TILE_COAST_NW   : [206,128,TILESIZE,TILESIZE],
+    TILE_MOUNTAIN   : [70,13,TILESIZE,TILESIZE],
+    TILE_ROAD_N     : [172,64,TILESIZE,TILESIZE],
+    TILE_ROAD_E     : [155,64,TILESIZE,TILESIZE],
+    TILE_ROAD_NE    : [155,47,TILESIZE,TILESIZE],
+    TILE_ROAD_SE    : [155,13,TILESIZE,TILESIZE],
+    TILE_ROAD_SW    : [189,13,TILESIZE,TILESIZE],
+    TILE_ROAD_NW    : [189,47,TILESIZE,TILESIZE],
+    TILE_WATER_NW   : [155,81,TILESIZE,TILESIZE],
+    TILE_WATER_NE   : [189,81,TILESIZE,TILESIZE],
+    TILE_WATER_SW   : [172,81,TILESIZE,TILESIZE],
+    TILE_WATER_SE   : [206,81,TILESIZE,TILESIZE],
+    TILE_BLANK      : [223,81,TILESIZE,TILESIZE]
+}
+# Units stats and data in dictionaries
+LOW_ARMOR = 1
+MEDIUM_ARMOR = 3
+HIGH_ARMOR = 5
+LAND_TYPE = "land"
+WATER_TYPE = "water"
+AIR_TYPE = "air"
+
+
+INFANTRY = {
+    "Name": "infantry",
+    "movement": 3,
+    "range": 1,
+    "defense": LOW_ARMOR,
+    "type": LAND_TYPE
+}
+HEAVY_INFANTRY = {
+    "Name": "heavy infantry",
+    "movement": 2,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+TANK = {
+    "Name": "tank",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+MEDIUM_TANK = {
+    "Name": "medium tank",
+    "movement": 5,
+    "range": 1,
+    "defense": HIGH_ARMOR,
+    "type": LAND_TYPE
+}
+HEAVY_TANK = {
+    "Name": "heavy tank",
+    "movement": 6,
+    "range": 1,
+    "defense": HIGH_ARMOR,
+    "type": LAND_TYPE
+}
+ARTILLERY = {
+    "Name": "artillery",
+    "movement": 5,
+    "range": [2,3],
+    "defense": LOW_ARMOR,
+    "type": LAND_TYPE
+}
+HEAVY_ARTILLERY = {
+    "Name": "heavy artillery",
+    "movement": 5,
+    "range": [3,4,5],
+    "defense": LOW_ARMOR,
+    "type": LAND_TYPE
+}
+AA_TANK = {
+    "Name": "AA tank",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+APC = {
+    "Name": "APC",
+    "movement": 6,
+    "range": 0,
+    "defense": MEDIUM_ARMOR,
+    "type": LAND_TYPE
+}
+SUBMARINE = {
+    "Name": "submarine",
+    "movement": 5,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": WATER_TYPE
+}
+DESTROYER = {
+    "Name": "destroyer",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": WATER_TYPE
+}
+LANDER = {
+    "Name": "lander",
+    "movement": 6,
+    "range": 0,
+    "defense": LOW_ARMOR,
+    "type": WATER_TYPE
+}
+CARRIER = {
+    "Name": "carrier",
+    "movement": 5,
+    "range": [3,4,5,6],
+    "defense": HIGH_ARMOR,
+    "type": WATER_TYPE
+}
+TRANSPORT_HELICOPTER = {
+    "Name": "transport helicopter",
+    "movement": 6,
+    "range": 0,
+    "defense": LOW_ARMOR,
+    "type": AIR_TYPE
+}
+COMBAT_HELICOPTER = {
+    "Name": "combat helicopter",
+    "movement": 6,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": AIR_TYPE
+}
+FIGHTER_JET = {
+    "Name": "fighter jet",
+    "movement": 9,
+    "range": 1,
+    "defense": HIGH_ARMOR,
+    "type": AIR_TYPE
+}
+BOMBER = {
+    "Name": "bomber",
+    "movement": 7,
+    "range": 1,
+    "defense": MEDIUM_ARMOR,
+    "type": AIR_TYPE
+}
+
     TILE_GRASS      : [3,14,TILESIZE,TILESIZE],
     TILE_WATER      : [20,129,TILESIZE,TILESIZE],
     TILE_FOREST     : [20,48,TILESIZE,TILESIZE],
