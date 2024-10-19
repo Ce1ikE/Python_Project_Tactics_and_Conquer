@@ -1,3 +1,4 @@
 
 *.pyc
 .vscode/launch.json
+debug.py
