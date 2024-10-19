@@ -6,20 +6,21 @@ class unit:
 
 
 
-    def __init__(self,UnitData: dict, pos: list):
+    def __init__(self,UnitData: dict, x,y):
         self.name = UnitData.get("Name")
         self.movement = UnitData.get("movement")
         self.range = UnitData.get("range")
         self.defense = UnitData.get("defense")
         self.type = UnitData.get("type")
-        self.pos = [0,0]
+        self.x= x
+        self.y = y
 
 
     def Spawn():
         print("spawns unit and maintains unit")
 
     def attack(enemy: 'unit'):
-        print("this unit will attack the {enemy} inn this function")
+        print("this unit will attack the {enemy} in this function")
 
     def die():
         print("this function runs when a unit dies and is removed from screen")
@@ -39,6 +40,6 @@ class unit:
     def ShowMenu():
         print("this function will show a menu with information about the unit")
 
-    def Travel(position: list):
+    def Travel(x,y):
         print("this function will make the unit travel to {position} coordinates")
         

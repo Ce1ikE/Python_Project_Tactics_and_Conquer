@@ -8,5 +8,5 @@ from classes.ClassMenu import Menu
 from data.Configuration import *
 #Game().createMap()
 
-test = unit(INFANTRY,[0,0])
+test = unit(INFANTRY,0, 0)
 print(test)
