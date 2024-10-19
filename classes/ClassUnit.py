@@ -30,23 +30,23 @@ class unit:
     def attack(self, enemy: 'unit'):
         damage = (random.random())
 
-        if self.team == enemy.team:
-            print("friendly fire")
+
+        # if check if x or y coordinate is to far do know how to check diagonally
+        if abs(self.x - enemy.x) > self.range or abs(self.y - enemy.y) > self.range:
+
+            print("unit to far to attack")
         else:
-            # if check if x or y coordinate is to far do know how to check diagonally
-            if abs(self.x - enemy.x) > self.range or abs(self.y - enemy.y) > self.range:
+            print("enmey will be attacked")
+            enemy.health -= damage
+            print("enemey took {damage} amount of damage")
+        print("this unit will attack the {enemy.name} in this function")
+        print(abs(self.x - enemy.x) >= self.range)
+        print(abs(self.x - enemy.x))
 
-                print("unit to far to attack")
-            else:
-                print("enemy will be attacked")
-                enemy.health -= damage
-
-
-
+        #print(abs(self.y - enemy.y) >= self.range)
 
     def die():
         print("this function runs when a unit dies and is removed from screen")
-        #should also remove this instance of the class which i do not know how to do
 
     def inactive(self):
         print("this function wil run when the unit attacked or traveled until next round this unit will be inactive")
@@ -54,8 +54,6 @@ class unit:
     def active(self):
         print("this function will reactivate the inactive units from previous round")
         self.active = True
-
-
     def ShowTravelZone():
         print("this function show the possible travel distance and routes")
 
@@ -65,6 +63,6 @@ class unit:
     def ShowMenu():
         print("this function will show a menu with information about the unit")
 
-    def Travel(self, surface, x,y):
+    def Travel(x,y):
         print("this function will make the unit travel to {position} coordinates")
         
