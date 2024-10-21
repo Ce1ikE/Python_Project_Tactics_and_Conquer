@@ -20,6 +20,7 @@ class Game:
         self.hud = HUD(self.hud_ui_manager)
         self.game_state = MENU
         self.map_state = 0 
+        self.camera = ()
 
     def createMap(self):
         # wave grid (2D) array
