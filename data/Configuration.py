@@ -17,11 +17,13 @@ SCALETILE = 1
 WORLD_X = 40*SCALETILE
 WORLD_Y = 30*SCALETILE
 
-# Camera
+# Camera position in tiles
+CAMERA_X = 5
+CAMERA_Y = 5
 
-# Window size in px
-WIN_X = WORLD_X*TILESIZE - TILESIZE*5
-WIN_Y = WORLD_Y*TILESIZE - TILESIZE*5
+# Window size in tiles     !! Window_size < World_size
+WIN_X = WORLD_X - CAMERA_X
+WIN_Y = WORLD_Y - CAMERA_Y
 
 # Directions (clockwise)
 NORTH = 0

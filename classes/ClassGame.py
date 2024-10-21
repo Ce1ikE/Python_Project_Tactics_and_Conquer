@@ -11,16 +11,16 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("tactics & Conquer")
-        self.ui_window = pygame.display.set_mode((WIN_X,WIN_Y))
-        self.hud_ui_manager = pygame_gui.UIManager((WIN_X,WIN_Y),"./data/theme.json")
-        self.menu_ui_manager = pygame_gui.UIManager((WIN_X,WIN_Y),"./data/theme.json")
+        self.ui_window = pygame.display.set_mode((WIN_X*TILESIZE,WIN_Y*TILESIZE))
+        self.hud_ui_manager = pygame_gui.UIManager((WIN_X*TILESIZE,WIN_Y*TILESIZE),"./data/theme.json")
+        self.menu_ui_manager = pygame_gui.UIManager((WIN_X*TILESIZE,WIN_Y*TILESIZE),"./data/theme.json")
         self.clock = pygame.time.Clock()
          # "Menu" wordt getekent door "pygame_gui" dus moeten we een UIManager object doorgeven zodat we op het juiste vlak tekenen
         self.menu = Menu(self.menu_ui_manager)
         self.hud = HUD(self.hud_ui_manager)
         self.game_state = MENU
         self.map_state = 0 
-        self.camera = ()
+        self.camera = (CAMERA_X,CAMERA_Y)
 
     def createMap(self):
         # wave grid (2D) array
@@ -30,6 +30,22 @@ class Game:
             result = grid.collapse_wave_function()
             if result == False:
                 self.map_state = 1
+
+    def checkCamera(self,event):
+        if event.type == pygame.K_z:
+            if self.camera[0] > 0:
+                self.camera[0] -= 1
+        elif event.type == pygame.K_d:
+            if self.camera[1] <= CAMERA_Y:
+                self.camera[1] += 1
+        elif event.type == pygame.K_s:
+            if self.camera[0] <= CAMERA_X:
+                self.camera[0] += 1
+        elif event.type == pygame.K_q:
+            if self.camera[1] > 0:
+                self.camera[0] -= 1
+
+        
 
     def run(self):
         # de "run" functie runt de game
@@ -63,6 +79,8 @@ class Game:
                     self.menu_ui_manager.process_events(event)
 
                 if self.game_state == PLAYING:
+                    if event.type == pygame.KEYDOWN:
+                        self.checkCamera(event)
                     self.hud_ui_manager.process_events(event)
             # ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
