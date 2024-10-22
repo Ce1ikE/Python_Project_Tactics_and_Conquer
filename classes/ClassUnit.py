@@ -1,8 +1,9 @@
 import pygame
 import pygame_gui
+from classes.ClassSpritesheet import SpriteSheet
 from data.Configuration import *
 
-class unit:
+class Unit:
 
 
 
@@ -17,14 +18,14 @@ class unit:
         self.team = team
         self.active = True
         self.health = 10
-        self.Unit_IMG = pygame.image.load("./assets/png/cursor+default.png")
+        self.Unitspritesheet = SpriteSheet(SPRITESHEET_PATH_UNITS).images_at(UnitData.get("spritesheet")) 
 
     def Spawn(self,surface):
        #print("unit spawned")
         #print((self.x * TILESIZE, self.y * TILESIZE))
         surface.blit(self.Unit_IMG, (self.x * TILESIZE, self.y * TILESIZE))
 
-    def attack(self, enemy: 'unit'):
+    def attack(self, enemy: 'Unit'):
         if self.team == enemy.team:
             print("friendly fire")
         else:
@@ -38,12 +39,6 @@ class unit:
     def die():
         print("this function runs when a unit dies and is removed from screen")
 
-    def inactive():
-        print("this function wil run when the unit attacked or traveled until next round this unit will be inactive")
-
-    def active():
-        print("this function will reactivate the inactive units from previous round")
-
     def ShowTravelZone():
         print("this function show the possible travel distance and routes")
 
@@ -53,6 +48,7 @@ class unit:
     def ShowMenu():
         print("this function will show a menu with information about the unit")
 
-    def Travel(x,y):
+    def Travel(self,x,y):
         print("this function will make the unit travel to {position} coordinates")
+        self.active = False
         

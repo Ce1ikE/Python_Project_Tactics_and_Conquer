@@ -34,8 +34,10 @@ class Grid:
         # draw the chosen cell
         image_cell = SpriteSheet(SPRITESHEET_PATH_TILES).image_at(tileSprites[self.grid[y][x].options[0]])
         image_cell = pygame.transform.scale_by(image_cell,SCALETILE)
+        # All needed variables and images are copied inside a object "Map" for the game later on
         self.ui_window.blit(image_cell, (x * TILESIZE * SCALETILE, y * TILESIZE * SCALETILE))
         self.map.createMapSurface(image_cell,x * TILESIZE * SCALETILE,y * TILESIZE * SCALETILE)
+        self.map.mapTerrain[y][x] = self.grid[y][x].options[0]
         # update the display
         pygame.display.update()
 
