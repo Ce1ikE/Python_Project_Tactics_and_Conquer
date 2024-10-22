@@ -3,6 +3,21 @@ PLAYING = "playing"
 MENU    = "menu"
 QUIT    = "quit"
 
+# Possible players
+PLAYER_1 = 0
+PLAYER_2 = 1
+PLAYER_3 = 2
+PLAYER_4 = 3
+PLAYERS = {
+    PLAYER_1 : "red",
+    PLAYER_2 : "green",
+    PLAYER_3 : "yellow",
+    PLAYER_4 : "blue",
+}
+
+# Number of players
+N_PLAYERS = 2
+
 # PATHS ARE DEFINED BASED ON WORKING DIRECTORY
 # Path to the spritesheets we use
 SPRITESHEET_PATH_TILES = "./assets/png/GBA_AW_Tiles.png"

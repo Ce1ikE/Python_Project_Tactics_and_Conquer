@@ -1,8 +1,8 @@
 from classes.ClassUnit import Unit
 
 class Player:
-    def __init__(self):
-        self.player_number = 0
+    def __init__(self,player_number):
+        self.player_number = player_number
         self.funds = 1000
         # Default 1 because there will be a HQ
         self.buildings = 1
@@ -17,3 +17,6 @@ class Player:
     def addUnit(self,newUnitType,newUnit_x,newUnit_y):
         newUnit = Unit(newUnitType,newUnit_x,newUnit_y,self.player_number)
         self.Units.append(newUnit)
+
+    def addBuilding(self):
+        self.buildings += 1

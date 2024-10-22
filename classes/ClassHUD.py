@@ -36,4 +36,8 @@ class HUD:
         self.manager.draw_ui(ui_window)
 
     def handleHUDEvents(self,event):
-        pass
+        if event.type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element == self.next_player_btn:
+                return PLAYING
+            elif event.ui_element == self.pause_btn:
+                return MENU
