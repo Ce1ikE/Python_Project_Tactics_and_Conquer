@@ -13,6 +13,7 @@ class Unit:
         self.range = UnitData.get("range")
         self.defense = UnitData.get("defense")
         self.type = UnitData.get("type")
+        self.damage = UnitData.get("base_damage")
         self.x= x
         self.y = y
         self.team = team

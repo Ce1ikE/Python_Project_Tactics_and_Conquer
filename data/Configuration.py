@@ -490,6 +490,26 @@ unitSprites = {
     ],
 }
 
+unitsBaseDamage = [
+    [55, 65, 70, 75, 105, 125, 90, 95, 105, None, None, None, None, 75, None, 110, None],  # Infantry
+    [45, 55, 65, 70, 95, 115, 85, 90, 105, None, None, None, None, 75, None, 110, None],   # Heavy Infantry (Mech)
+    [12, 85, 35, 85, 105, 125, 80, 90, 60, None, None, None, None, 55, None, 105, None],   # Tank
+    [5, 55, 55, 85, 105, 70, 85, 70, 25, None, None, None, None, 55, None, 105, None],     # Medium Tank
+    [1, 15, 15, 55, 75, 45, 55, 40, 5, None, None, None, None, 25, None, 105, None],       # Heavy Tank (Neotank)
+    [14, 75, 45, 75, 125, 125, 90, 90, 50, None, None, None, None, 105, None, 90, None],   # Artillery
+    [15, 70, 45, 70, 115, 125, 80, 85, 45, None, None, None, None, 65, None, 85, None],    # Heavy Artillery (Rockets)
+    [25, 65, 85, 85, 115, 75, 85, 45, 55, None, None, None, None, 120, 120, 65, None],     # Anti-Air Tank
+    [26, 85, 28, 85, 105, 80, 80, 55, 50, None, None, None, None, 65, None, 105, None],    # APC
+    [None, None, None, None, None, None, None, None, None, 55, 120, None, None, None, None, None, None],  # Submarine
+    [None, None, None, None, None, None, None, None, None, 90, 65, 85, None, 100, None, None, 95],  # Destroyer (Cruiser)
+    [None, None, None, None, None, None, None, None, None, 95, 95, 95, 95, 95, None, None, None],  # Lander
+    [None, None, None, None, None, None, None, None, None, 105, 105, None, 95, None, None, None, 95],  # Carrier (Battleship)
+    [None, 9, None, None, None, None, None, None, None, None, None, None, None, 100, 55, None, None],  # Transport Helicopter
+    [30, 35, 35, 35, 45, 85, 75, 65, 55, None, None, None, None, None, None, 65, 100],  # Combat Helicopter (B-Copter)
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, 55, 65, 55, 100],  # Fighter Jet
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, 75, None, 100, None]  # Bomber
+]
+
 # Units stats and data in dictionaries
 LOW_ARMOR = 1
 MEDIUM_ARMOR = 3
@@ -504,7 +524,8 @@ INFANTRY = {
     "range": 1,
     "defense": LOW_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[INFANTRY]
+    "spritesheet":unitSprites[INFANTRY],
+    "base_damage" : unitsBaseDamage[INFANTRY], 
 }
 HEAVY_INFANTRY = {
     "Name": "heavy infantry",
@@ -512,7 +533,8 @@ HEAVY_INFANTRY = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[HEAVY_INFANTRY]
+    "spritesheet":unitSprites[HEAVY_INFANTRY],
+    "base_damage" : unitsBaseDamage[HEAVY_INFANTRY], 
 }
 TANK = {
     "Name": "tank",
@@ -520,7 +542,8 @@ TANK = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[TANK]
+    "spritesheet":unitSprites[TANK],
+    "base_damage" : unitsBaseDamage[TANK], 
 }
 MEDIUM_TANK = {
     "Name": "medium tank",
@@ -528,7 +551,8 @@ MEDIUM_TANK = {
     "range": 1,
     "defense": HIGH_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[MEDIUM_TANK]
+    "spritesheet":unitSprites[MEDIUM_TANK],
+    "base_damage" : unitsBaseDamage[MEDIUM_TANK], 
 }
 HEAVY_TANK = {
     "Name": "heavy tank",
@@ -536,7 +560,8 @@ HEAVY_TANK = {
     "range": 1,
     "defense": HIGH_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[HEAVY_TANK]
+    "spritesheet":unitSprites[HEAVY_TANK],
+    "base_damage" : unitsBaseDamage[HEAVY_TANK], 
 }
 ARTILLERY = {
     "Name": "artillery",
@@ -544,7 +569,8 @@ ARTILLERY = {
     "range": [2,3],
     "defense": LOW_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[ARTILLERY]
+    "spritesheet":unitSprites[ARTILLERY],
+    "base_damage" : unitsBaseDamage[ARTILLERY], 
 }
 HEAVY_ARTILLERY = {
     "Name": "heavy artillery",
@@ -552,7 +578,8 @@ HEAVY_ARTILLERY = {
     "range": [3,4,5],
     "defense": LOW_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[HEAVY_ARTILLERY]
+    "spritesheet":unitSprites[HEAVY_ARTILLERY],
+    "base_damage" : unitsBaseDamage[HEAVY_ARTILLERY], 
 }
 AA_TANK = {
     "Name": "AA tank",
@@ -560,7 +587,8 @@ AA_TANK = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[AA_TANK]
+    "spritesheet":unitSprites[AA_TANK],
+    "base_damage" : unitsBaseDamage[AA_TANK], 
 }
 APC = {
     "Name": "APC",
@@ -568,7 +596,8 @@ APC = {
     "range": 0,
     "defense": MEDIUM_ARMOR,
     "type": LAND_TYPE,
-    "spritesheet":unitSprites[APC]
+    "spritesheet":unitSprites[APC],
+    "base_damage" : unitsBaseDamage[APC], 
 }
 SUBMARINE = {
     "Name": "submarine",
@@ -576,7 +605,8 @@ SUBMARINE = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": WATER_TYPE,
-    "spritesheet":unitSprites[SUBMARINE]
+    "spritesheet":unitSprites[SUBMARINE],
+    "base_damage" : unitsBaseDamage[SUBMARINE], 
 }
 DESTROYER = {
     "Name": "destroyer",
@@ -584,7 +614,8 @@ DESTROYER = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": WATER_TYPE,
-    "spritesheet":unitSprites[DESTROYER]
+    "spritesheet":unitSprites[DESTROYER],
+    "base_damage" : unitsBaseDamage[DESTROYER], 
 }
 LANDER = {
     "Name": "lander",
@@ -592,7 +623,8 @@ LANDER = {
     "range": 0,
     "defense": LOW_ARMOR,
     "type": WATER_TYPE,
-    "spritesheet":unitSprites[LANDER]
+    "spritesheet":unitSprites[LANDER],
+    "base_damage" : unitsBaseDamage[LANDER], 
 }
 CARRIER = {
     "Name": "carrier",
@@ -600,7 +632,8 @@ CARRIER = {
     "range": [3,4,5,6],
     "defense": HIGH_ARMOR,
     "type": WATER_TYPE,
-    "spritesheet":unitSprites[CARRIER]
+    "spritesheet":unitSprites[CARRIER],
+    "base_damage" : unitsBaseDamage[CARRIER], 
 }
 TRANSPORT_HELICOPTER = {
     "Name": "transport helicopter",
@@ -608,7 +641,8 @@ TRANSPORT_HELICOPTER = {
     "range": 0,
     "defense": LOW_ARMOR,
     "type": AIR_TYPE,
-    "spritesheet":unitSprites[TRANSPORT_HELICOPTER]
+    "spritesheet":unitSprites[TRANSPORT_HELICOPTER],
+    "base_damage" : unitsBaseDamage[TRANSPORT_HELICOPTER], 
 }
 COMBAT_HELICOPTER = {
     "Name": "combat helicopter",
@@ -616,7 +650,8 @@ COMBAT_HELICOPTER = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": AIR_TYPE,
-    "spritesheet":unitSprites[COMBAT_HELICOPTER]
+    "spritesheet":unitSprites[COMBAT_HELICOPTER],
+    "base_damage" : unitsBaseDamage[COMBAT_HELICOPTER], 
 }
 FIGHTER_JET = {
     "Name": "fighter jet",
@@ -624,7 +659,8 @@ FIGHTER_JET = {
     "range": 1,
     "defense": HIGH_ARMOR,
     "type": AIR_TYPE,
-    "spritesheet":unitSprites[FIGHTER_JET]
+    "spritesheet":unitSprites[FIGHTER_JET],
+    "base_damage" : unitsBaseDamage[FIGHTER_JET], 
 }
 BOMBER = {
     "Name": "bomber",
@@ -632,6 +668,7 @@ BOMBER = {
     "range": 1,
     "defense": MEDIUM_ARMOR,
     "type": AIR_TYPE,
-    "spritesheet":unitSprites[BOMBER]
+    "spritesheet":unitSprites[BOMBER],
+    "base_damage" : unitsBaseDamage[BOMBER], 
 }
 
