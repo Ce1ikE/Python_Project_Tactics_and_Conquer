@@ -4,23 +4,26 @@ import sys
 from classes.ClassGrid import Grid
 from classes.ClassMenu import Menu
 from classes.ClassHUD import HUD
-
+from classes.ClassMap import Map
+from classes.ClassCursor import Cursor
 from data.Configuration import *
 
 class Game:
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption("tactics & Conquer")
-        self.ui_window = pygame.display.set_mode((WIN_X*TILESIZE,WIN_Y*TILESIZE))
-        self.hud_ui_manager = pygame_gui.UIManager((WIN_X*TILESIZE,WIN_Y*TILESIZE),"./data/theme.json")
-        self.menu_ui_manager = pygame_gui.UIManager((WIN_X*TILESIZE,WIN_Y*TILESIZE),"./data/theme.json")
         self.clock = pygame.time.Clock()
-         # "Menu" wordt getekent door "pygame_gui" dus moeten we een UIManager object doorgeven zodat we op het juiste vlak tekenen
+        pygame.display.set_caption("tactics & Conquer")
+        # !!! eerst de display initialiseren anders krijg je problemen met de UIManager's thema files
+        self.ui_window = pygame.display.set_mode((WIN_X_PX,WIN_Y_PX))
+        # "Menu" wordt getekent door "pygame_gui" dus moeten we een UIManager object doorgeven zodat we op het juiste vlak tekenen
+        self.hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX),"./data/theme.json")
+        self.menu_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX),"./data/theme.json")
         self.menu = Menu(self.menu_ui_manager)
         self.hud = HUD(self.hud_ui_manager)
+        self.cursor = Cursor(0,0)
         self.game_state = MENU
-        self.map_state = 0 
-        self.camera = (CAMERA_X,CAMERA_Y)
+        self.map_state = 0
+        self.camera = [0,0]
 
     def createMap(self):
         # wave grid (2D) array
@@ -30,22 +33,7 @@ class Game:
             result = grid.collapse_wave_function()
             if result == False:
                 self.map_state = 1
-
-    def checkCamera(self,event):
-        if event.type == pygame.K_z:
-            if self.camera[0] > 0:
-                self.camera[0] -= 1
-        elif event.type == pygame.K_d:
-            if self.camera[1] <= CAMERA_Y:
-                self.camera[1] += 1
-        elif event.type == pygame.K_s:
-            if self.camera[0] <= CAMERA_X:
-                self.camera[0] += 1
-        elif event.type == pygame.K_q:
-            if self.camera[1] > 0:
-                self.camera[0] -= 1
-
-        
+                self.map =  grid.copy_map()     
 
     def run(self):
         # de "run" functie runt de game
@@ -80,7 +68,7 @@ class Game:
 
                 if self.game_state == PLAYING:
                     if event.type == pygame.KEYDOWN:
-                        self.checkCamera(event)
+                       self.camera = self.cursor.UpdatePosition(event,self.camera[0],self.camera[1])
                     self.hud_ui_manager.process_events(event)
             # ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,10 +77,14 @@ class Game:
             if self.game_state == MENU:
                 self.menu.mainMenu(self.ui_window)
                 self.menu_ui_manager.update(time_delta)
+
+
             if self.game_state == PLAYING:
                 if self.map_state == 0:
                     self.createMap()
-                    self.hud.drawHUD(self.ui_window)
+                self.map.drawMap(self.camera[0],self.camera[1],self.ui_window)
+                self.cursor.drawCursor(self.ui_window)
+                self.hud.drawHUD(self.ui_window)
                 self.hud_ui_manager.update(time_delta)
             # ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 

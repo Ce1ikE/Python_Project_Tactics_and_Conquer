@@ -2,6 +2,7 @@ import pygame
 import random
 from classes.ClassStack import Stack
 from classes.ClassCell import Cell
+from classes.ClassMap import Map
 from classes.ClassSpritesheet import SpriteSheet
 from data.Configuration import *
 
@@ -12,6 +13,7 @@ class Grid:
         self.ui_window = ui_window
         # Each cell is initialized with the tile "ruleset" (all possible tiles) and it's neigbouring tiles
         self.grid = [[Cell(list(tileRuleset.keys()),x,y) for x in range(width)] for y in range(height)]
+        self.map = Map()
         # self.plant_seeds()
 
         for y in range(self.rows):
@@ -30,11 +32,15 @@ class Grid:
 
     def draw_tile(self,x,y):
         # draw the chosen cell
-        image_cell = SpriteSheet(SPRITESHEET_PATH).image_at(tileSprites[self.grid[y][x].options[0]])
+        image_cell = SpriteSheet(SPRITESHEET_PATH_TILES).image_at(tileSprites[self.grid[y][x].options[0]])
         image_cell = pygame.transform.scale_by(image_cell,SCALETILE)
-        self.ui_window.blit(image_cell, (x * TILESIZE, y * TILESIZE))
+        self.ui_window.blit(image_cell, (x * TILESIZE * SCALETILE, y * TILESIZE * SCALETILE))
+        self.map.createMapSurface(image_cell,x * TILESIZE * SCALETILE,y * TILESIZE * SCALETILE)
         # update the display
         pygame.display.update()
+
+    def copy_map(self):
+        return self.map
     
     def get_neighbours(self, x, y):
         neighbours = {}

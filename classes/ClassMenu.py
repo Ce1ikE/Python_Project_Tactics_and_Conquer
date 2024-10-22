@@ -7,7 +7,7 @@ class Menu:
         self.manager = ui_manager
         panel_width = 500
         panel_height = 500
-        self.ui_panel = pygame_gui.elements.UIPanel(relative_rect=pygame.Rect((WIN_X/2 - panel_width/2,WIN_Y/2 - panel_height/2),(panel_width,panel_height)),
+        self.ui_panel = pygame_gui.elements.UIPanel(relative_rect=pygame.Rect((WIN_X_PX/2 - panel_width/2,WIN_Y_PX/2 - panel_height/2),(panel_width,panel_height)),
                                                manager=self.manager,
                                                starting_height=2)
         self.text_box = pygame_gui.elements.UITextBox(html_text="<effect id=fade>welcome</effect>",

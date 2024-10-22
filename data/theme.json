@@ -72,6 +72,30 @@
         }
     },
 
+    "#HUD_panel": {
+        "colours":{
+            "normal_border": "#C7253E"
+        },
+        "images": {
+            "background_image": {
+                "path": "none"
+            }
+        },
+        "misc": {
+            "shape": "rectangle",
+            "border_width": "2",
+            "shadow_width": "15"
+        }
+    },
+    "#HUD_next_player": {
+        "images": {
+            "background_image": {
+                "path": "./assets/png/next_player.png",
+                "sub_surface_rect": "0,0,30,30"
+            }
+        }
+    },
+
 
     "drop_down_menu": {
         "misc": {
