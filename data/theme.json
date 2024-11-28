@@ -1,5 +1,5 @@
 {
-    "Greybeard_font": {
+    "#Greybeard_font": {
         "font": {
             "name": "Greybeard",
             "size": "16",
@@ -8,7 +8,27 @@
         }
     },
 
+    "#Image_Menu_bg_1": {
+        "images": {
+            "background_image": {
+                "path": "./assets/jpg/Panel_Background_1.jpeg",
+                "sub_surface_rect": "0,200,735,700"
+            }
+        }
+    },
+
+    "#HUD_next_player": {
+        "images": {
+            "background_image": {
+                "path": "./assets/png/next_player.png",
+                "sub_surface_rect": "0,0,30,30"
+            }
+        }
+    },
+
+
     "button": {
+        "prototype": "#Greybeard_font",
         "colours": {
             "normal_border": "White",
             "normal_bg": "SlateGray",
@@ -19,17 +39,12 @@
             "shape": "rounded_rectangle",
             "shape_corner_radius": "10",
             "border_width": "2"
-        },
-        "font": {
-            "name": "Greybeard"
         }
     },
 
 
     "text_box": {
-        "font": {
-            "name": "Greybeard"
-        },
+        "prototype": "#Greybeard_font",
         "misc": {
             "shape": "rounded_rectangle",
             "padding": "10",
@@ -40,11 +55,9 @@
 
     
     "text_entry": {
+        "prototype": "#Greybeard_font",
         "colours":{
             "dark_bg": "#fff"
-        },
-        "font": {
-            "name": "Greybeard"
         },
         "misc": {
             "shape": "rounded_rectangle",
@@ -56,14 +69,9 @@
 
 
     "panel": {
+        "prototype":"#Image_Menu_bg_1",
         "colours":{
             "normal_border": "#C7253E"
-        },
-        "images": {
-            "background_image": {
-                "path": "./assets/jpg/Panel_Background_1.jpeg",
-                "sub_surface_rect": "0,200,735,700"
-            }
         },
         "misc": {
             "shape": "rectangle",
@@ -87,14 +95,7 @@
             "shadow_width": "15"
         }
     },
-    "#HUD_next_player": {
-        "images": {
-            "background_image": {
-                "path": "./assets/png/next_player.png",
-                "sub_surface_rect": "0,0,30,30"
-            }
-        }
-    },
+
 
 
     "drop_down_menu": {

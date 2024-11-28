@@ -1,0 +1,80 @@
+{
+    "button": {
+      "font": "AdvanceWarsFont.ttf",
+      "font_size": 16,
+      "normal_text": "#ffffff",
+      "hovered_text": "#ffcc00",
+      "disabled_text": "#7f7f7f",
+      "normal_bg": "#0040a0",
+      "hovered_bg": "#0060ff",
+      "disabled_bg": "#202020",
+      "border_width": 3,
+      "normal_border": "#000000",
+      "hovered_border": "#ffcc00",
+      "disabled_border": "#7f7f7f",
+      "shadow_width": 2,
+      "shadow_colour": "#000000"
+    },
+    "label": {
+      "font": "AdvanceWarsFont.ttf",
+      "font_size": 16,
+      "text": "#ffffff",
+      "background": "#003080",
+      "border_width": 2,
+      "border_colour": "#000000"
+    },
+    "textbox": {
+      "font": "AdvanceWarsFont.ttf",
+      "font_size": 16,
+      "text": "#ffffff",
+      "background": "#002060",
+      "selected_text": "#000000",
+      "selected_bg": "#ffcc00",
+      "border_width": 2,
+      "border_colour": "#000000",
+      "shadow_width": 2,
+      "shadow_colour": "#000000",
+      "padding": {
+        "top": 5,
+        "bottom": 5,
+        "left": 5,
+        "right": 5
+      }
+    },
+    "window": {
+      "title_bar_height": 25,
+      "title_bar": {
+        "font": "AdvanceWarsFont.ttf",
+        "font_size": 16,
+        "text": "#ffffff",
+        "background": "#004080",
+        "border_width": 2,
+        "border_colour": "#000000"
+      },
+      "background": "#001840",
+      "border_width": 3,
+      "border_colour": "#000000",
+      "shadow_width": 4,
+      "shadow_colour": "#000000"
+    },
+    "dropdown_menu": {
+      "font": "AdvanceWarsFont.ttf",
+      "font_size": 16,
+      "normal_text": "#ffffff",
+      "hovered_text": "#ffcc00",
+      "background": "#0040a0",
+      "hovered_bg": "#0060ff",
+      "border_width": 2,
+      "border_colour": "#000000"
+    },
+    "panel": {
+      "background": "#002060",
+      "border_width": 3,
+      "border_colour": "#000000",
+      "shadow_width": 3,
+      "shadow_colour": "#000000",
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": "5"
+    }
+  }
+  

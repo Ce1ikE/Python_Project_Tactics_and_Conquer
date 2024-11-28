@@ -1,14 +1,16 @@
-# from classes.ClassUnit import unit
-# import pygame
-# import pygame_gui
-# import sys
-# from classes.ClassGrid import Grid
-# from classes.ClassMenu import Menu
-# Game().createMap()
 
-# from data.Configuration import *
-# test = unit(INFANTRY,0, 0)
-# print(test)
 
-from classes.ClassGame import Game
-Game().run()
+# setup(
+#     name = "Tactics_And_Conquer",
+#     version = "0.1.0",
+#     packages =  find_packages(include = [classes,data]),
+#     install_requires = [
+#         "pygame",
+#         "pygame_gui",
+#     ]
+# )
+
+
+# def find_packages(include = []):
+
+    

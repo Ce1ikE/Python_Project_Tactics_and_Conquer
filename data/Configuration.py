@@ -1,7 +1,11 @@
-# Game states helps us with keeping logic in our "main" loop
-PLAYING = "playing"
-MENU    = "menu"
-QUIT    = "quit"
+# Game states helps us with keeping logic divided in our "main" game loop
+PLAYING     = "playing"
+MENU        = "menu"
+HUD_MENU    = "hud"
+ATTACK_MODE = "attack"
+MOVE_MODE   = "move"
+DEFEND_MODE = "defend"
+QUIT        = "quit"
 
 # Possible players
 PLAYER_1 = 0
@@ -18,51 +22,48 @@ PLAYERS = {
 # Number of players
 N_PLAYERS = 2
 
+# framerate
+FPS = 40
+
 # PATHS ARE DEFINED BASED ON WORKING DIRECTORY
 # Path to the spritesheets we use
 SPRITESHEET_PATH_TILES = "./assets/png/GBA_AW_Tiles.png"
 SPRITESHEET_PATH_CURSOR_1 = "./assets/png/cursor+attack.png"
 SPRITESHEET_PATH_CURSOR_2 = "./assets/png/cursor+default.png"
 SPRITESHEET_PATH_UNITS = "./assets/png/GBA_AW_Units.png"
+SPRITESHEET_PATH_HUD = "./assets/png/GBA_AW_HUD.png"
 SPRITESHEET_PATH_HUD_NEXT_PLAYER = "./assets/png/next_player.png"
 SPRITESHEET_PATH_HUD_PAUSE = "./assets/png/pause.png"
 SPRITESHEET_PATH_HUD_PLAY = "./assets/png/play.png"
 # Path to fonts
 FONT_PATH_GREYBEARD = "./assets/fonts/Greybeard.ttf"
 
-# Spritesheet tile size (original), and upscale factor
-SCALETILE = 4
-TILESIZE  = 16
-
 # World size in tiles
-WORLD_X = 10
-WORLD_Y = 10
+WORLD_X,WORLD_Y = 20 , 20
+
+# Window size in px
+WIN_X_PX,WIN_Y_PX = 640 , 640
+
+# Spritesheet tile size in px (original), and upscale factor 
+# tile size is unchangable which means the upscale factor must be determined depending on the window size
+TILESIZE_8  = 8  # a 8px based tile
+TILESIZE    = 16 # default  
+TILESIZE_24 = 24 # a 24px based tile 
+TILESIZE_32 = 32 # a 32px based tile
+
+SCALETILE = int((WIN_Y_PX / 10) / TILESIZE)
 
 # World size in px
 WORLD_X_PX = WORLD_X*TILESIZE*SCALETILE
 WORLD_Y_PX = WORLD_Y*TILESIZE*SCALETILE
 
-# Window size in px
-WIN_X_PX = 640
-WIN_Y_PX = 480
-
 # Window size in tiles     !! Window_size < World_size
-WIN_X = int(WIN_X_PX/(TILESIZE*SCALETILE))
-WIN_Y = int(WIN_Y_PX/(TILESIZE*SCALETILE))
+WIN_X = int(WIN_X_PX/(SCALETILE*TILESIZE))
+WIN_Y = int(WIN_Y_PX/(SCALETILE*TILESIZE))
 
 # Camera position in tiles
 CAMERA_X = WORLD_X - WIN_X
 CAMERA_Y = WORLD_Y - WIN_Y
-
-
-# Calculations :
-# tilesize              = 16
-# win_x_px,win_y_px     = 640 , 320
-# scaletile             = s
-# world_x,world_y       = w_x , w_y
-# win_x,win_y           = w_x - c_x , w_x - c_y
-# camera_x,camera_y     = c_x , c_y
-# world_x_px,world_y_px = 16*w_x*s , 16*w_y*s  
 
 # Directions (clockwise)
 NORTH = 0
@@ -71,40 +72,53 @@ SOUTH = 2
 WEST  = 3
 
 # Tile Types
-TILE_GRASS      = 0
-TILE_WATER      = 1
-TILE_FOREST     = 2
-TILE_COAST_N    = 3
-TILE_COAST_E    = 4
-TILE_COAST_S    = 5
-TILE_COAST_W    = 6
-TILE_COAST_NE   = 7
-TILE_COAST_SE   = 8
-TILE_COAST_SW   = 9
-TILE_COAST_NW   = 10
-TILE_MOUNTAIN   = 11
-TILE_ROAD_N     = 12
-TILE_ROAD_E     = 13
-TILE_ROAD_NE    = 14
-TILE_ROAD_SE    = 15
-TILE_ROAD_SW    = 16
-TILE_ROAD_NW    = 17
-TILE_WATER_NW   = 18
-TILE_WATER_NE   = 19
-TILE_WATER_SW   = 20
-TILE_WATER_SE   = 21
-TILE_FOREST_N   = 22
-TILE_FOREST_S   = 23 
-TILE_FOREST_W   = 24
-TILE_FOREST_E   = 25
-TILE_FOREST_NE  = 26
-TILE_FOREST_SE  = 27
-TILE_FOREST_NW  = 28
-TILE_FOREST_SW  = 29
-TILE_MOUTAIN_SW = 30
-TILE_MOUTAIN_N  = 31
-TILE_CITY       = 40
-TILE_BLANK      = 100
+TILE_GRASS                = 0
+TILE_WATER                = 1
+TILE_FOREST               = 2
+TILE_COAST_N              = 3
+TILE_COAST_E              = 4
+TILE_COAST_S              = 5
+TILE_COAST_W              = 6
+TILE_COAST_NE             = 7
+TILE_COAST_SE             = 8
+TILE_COAST_SW             = 9
+TILE_COAST_NW             = 10
+TILE_MOUNTAIN             = 11
+TILE_ROAD_N               = 12
+TILE_ROAD_E               = 13
+TILE_ROAD_NE              = 14
+TILE_ROAD_SE              = 15
+TILE_ROAD_SW              = 16
+TILE_ROAD_NW              = 17
+TILE_WATER_NW             = 18
+TILE_WATER_NE             = 19
+TILE_WATER_SW             = 20
+TILE_WATER_SE             = 21
+TILE_FOREST_N             = 22
+TILE_FOREST_S             = 23 
+TILE_FOREST_W             = 24
+TILE_FOREST_E             = 25
+TILE_FOREST_NE            = 26
+TILE_FOREST_SE            = 27
+TILE_FOREST_NW            = 28
+TILE_FOREST_SW            = 29
+TILE_MOUTAIN_SW           = 30
+TILE_MOUTAIN_N            = 31
+TILE_CITY                 = 50
+TILE_BARRACKS             = 51
+TILE_AIRPORT              = 52
+TILE_DOCK                 = 53
+TILE_HQ_RED               = 100
+TILE_CITY_RED             = 101
+TILE_BARRACKS_RED         = 102
+TILE_AIRPORT_RED          = 103
+TILE_DOCK_RED             = 104
+TILE_HQ_BLUE              = 130
+TILE_CITY_BLUE            = 131
+TILE_BARRACKS_BLUE        = 132
+TILE_AIRPORT_BLUE         = 133
+TILE_DOCK_BLUE            = 134
+TILE_BLANK                = 400
 
 # Tile Types Array
 TileArray = [
@@ -163,163 +177,218 @@ ROAD_E    = 13
 # Tile Ruleset
 # Dictionary of all tile types and tile edges, on the directions [North, East, South, West]
 tileRuleset = {
-    TILE_GRASS     : [GRASS, GRASS, GRASS, GRASS],
-    TILE_WATER     : [WATER, WATER, WATER, WATER],
-    TILE_FOREST    : [FOREST, FOREST, FOREST, FOREST],
-    TILE_MOUNTAIN  : [MOUNTAIN, MOUNTAIN, MOUNTAIN, MOUNTAIN],
+    TILE_GRASS            : [GRASS, GRASS, GRASS, GRASS],
+    TILE_WATER            : [WATER, WATER, WATER, WATER],
+    TILE_FOREST           : [FOREST, FOREST, FOREST, FOREST],
+    TILE_MOUNTAIN         : [MOUNTAIN, MOUNTAIN, MOUNTAIN, MOUNTAIN],
+           
+    TILE_COAST_N          : [GRASS, COAST_N, WATER, COAST_N],
+    TILE_COAST_E          : [COAST_E, GRASS, COAST_E, WATER],
+    TILE_COAST_S          : [WATER, COAST_S, GRASS, COAST_S],
+    TILE_COAST_W          : [COAST_W, WATER, COAST_W, GRASS],
+           
+    TILE_COAST_NE         : [GRASS, GRASS, COAST_E, COAST_N],
+    TILE_COAST_SE         : [COAST_E, GRASS, GRASS, COAST_S],
+    TILE_COAST_SW         : [COAST_W, COAST_S, GRASS, GRASS],
+    TILE_COAST_NW         : [GRASS, COAST_N, COAST_W, GRASS],
+           
+    TILE_MOUTAIN_SW        : [GRASS, GRASS, MOUNTAIN, MOUNTAIN],
+    TILE_MOUTAIN_N         : [MOUNTAIN, GRASS, GRASS, GRASS],
+           
+    TILE_ROAD_N           : [ROAD_N, FOREST, ROAD_N, FOREST],
+    TILE_ROAD_E           : [FOREST, ROAD_E, FOREST, ROAD_E],
+    TILE_ROAD_NE          : [ROAD_N, ROAD_E, GRASS, GRASS],
+    TILE_ROAD_SE          : [GRASS, ROAD_E, ROAD_N, GRASS],
+    TILE_ROAD_SW          : [GRASS, GRASS, ROAD_N, ROAD_E],
+    TILE_ROAD_NW          : [ROAD_N, GRASS, GRASS, ROAD_E],
+           
+    TILE_WATER_NW         : [WATER, COAST_S, COAST_E, WATER],
+    TILE_WATER_NE         : [WATER, WATER, COAST_W, COAST_S],
+    TILE_WATER_SW         : [COAST_E, COAST_N, WATER, WATER],
+    TILE_WATER_SE         : [COAST_W, WATER, WATER, COAST_N],
+           
+    TILE_FOREST_N         : [FOREST, FOREST_N, GRASS, FOREST_N],
+    TILE_FOREST_S         : [GRASS, FOREST_S, FOREST, FOREST_S],
+    TILE_FOREST_W         : [FOREST_W, GRASS, FOREST_W, FOREST],
+    TILE_FOREST_E         : [FOREST_E, FOREST, FOREST_E, GRASS],
+           
+    TILE_FOREST_NE        : [FOREST_E, FOREST_N, GRASS, GRASS],
+    TILE_FOREST_SE        : [GRASS, FOREST_S, FOREST_E, GRASS],
+    TILE_FOREST_NW        : [FOREST_W, GRASS, GRASS, FOREST_N],
+    TILE_FOREST_SW        : [GRASS, GRASS, FOREST_E, FOREST_S],
+           
+    TILE_CITY             : [TILE_ROAD_E, TILE_ROAD_N, TILE_ROAD_E, TILE_ROAD_N],
+    TILE_BARRACKS         : [GRASS,GRASS,GRASS,GRASS], 
+    TILE_AIRPORT          : [GRASS,GRASS,GRASS,GRASS], 
+    TILE_DOCK             : [WATER,COAST_N,GRASS,COAST_N], 
     
-    TILE_COAST_N   : [GRASS, COAST_N, WATER, COAST_N],
-    TILE_COAST_E   : [COAST_E, GRASS, COAST_E, WATER],
-    TILE_COAST_S   : [WATER, COAST_S, GRASS, COAST_S],
-    TILE_COAST_W   : [COAST_W, WATER, COAST_W, GRASS],
-    
-    TILE_COAST_NE  : [GRASS, GRASS, COAST_E, COAST_N],
-    TILE_COAST_SE  : [COAST_E, GRASS, GRASS, COAST_S],
-    TILE_COAST_SW  : [COAST_W, COAST_S, GRASS, GRASS],
-    TILE_COAST_NW  : [GRASS, COAST_N, COAST_W, GRASS],
-    
-    TILE_MOUTAIN_SW : [GRASS, GRASS, MOUNTAIN, MOUNTAIN],
-    TILE_MOUTAIN_N  : [MOUNTAIN, GRASS, GRASS, GRASS],
-    
-    TILE_ROAD_N    : [ROAD_N, FOREST, ROAD_N, FOREST],
-    TILE_ROAD_E    : [FOREST, ROAD_E, FOREST, ROAD_E],
-    TILE_ROAD_NE   : [ROAD_N, ROAD_E, GRASS, GRASS],
-    TILE_ROAD_SE   : [GRASS, ROAD_E, ROAD_N, GRASS],
-    TILE_ROAD_SW   : [GRASS, GRASS, ROAD_N, ROAD_E],
-    TILE_ROAD_NW   : [ROAD_N, GRASS, GRASS, ROAD_E],
-    
-    TILE_WATER_NW  : [WATER, COAST_S, COAST_E, WATER],
-    TILE_WATER_NE  : [WATER, WATER, COAST_W, COAST_S],
-    TILE_WATER_SW  : [COAST_E, COAST_N, WATER, WATER],
-    TILE_WATER_SE  : [COAST_W, WATER, WATER, COAST_N],
-    
-    TILE_FOREST_N  : [FOREST, FOREST_N, GRASS, FOREST_N],
-    TILE_FOREST_S  : [GRASS, FOREST_S, FOREST, FOREST_S],
-    TILE_FOREST_W  : [FOREST_W, GRASS, FOREST_W, FOREST],
-    TILE_FOREST_E  : [FOREST_E, FOREST, FOREST_E, GRASS],
-    
-    TILE_FOREST_NE : [FOREST_E, FOREST_N, GRASS, GRASS],
-    TILE_FOREST_SE : [GRASS, FOREST_S, FOREST_E, GRASS],
-    TILE_FOREST_NW : [FOREST_W, GRASS, GRASS, FOREST_N],
-    TILE_FOREST_SW : [GRASS, GRASS, FOREST_E, FOREST_S],
-    
-    TILE_CITY      : [TILE_ROAD_E, TILE_ROAD_N, TILE_ROAD_E, TILE_ROAD_N],
-    TILE_BLANK     : [TILE_BLANK, TILE_BLANK, TILE_BLANK, TILE_BLANK],
+    TILE_HQ_RED           : [GRASS,GRASS,GRASS,GRASS],
+    TILE_CITY_RED         : [GRASS,GRASS,GRASS,GRASS],
+    TILE_BARRACKS_RED     : [GRASS,GRASS,GRASS,GRASS],
+    TILE_AIRPORT_RED      : [GRASS,GRASS,GRASS,GRASS],
+    TILE_DOCK_RED         : [WATER,COAST_N,GRASS,COAST_N],
+
+    TILE_HQ_BLUE          : [GRASS,GRASS,GRASS,GRASS],
+    TILE_CITY_BLUE        : [GRASS,GRASS,GRASS,GRASS],
+    TILE_BARRACKS_BLUE    : [GRASS,GRASS,GRASS,GRASS],
+    TILE_AIRPORT_BLUE     : [GRASS,GRASS,GRASS,GRASS],
+    TILE_DOCK_BLUE        : [WATER,COAST_N,GRASS,COAST_N],
+
+    TILE_BLANK            : [TILE_BLANK, TILE_BLANK, TILE_BLANK, TILE_BLANK],
 }
 
 # Tile Weight
 # Dictionary of all tile probability
 tileWeights = {
-    TILE_GRASS      : 150,
-    TILE_WATER      : 5,
-    TILE_FOREST     : 3,
-    TILE_COAST_N    : 3,
-    TILE_COAST_E    : 3,
-    TILE_COAST_S    : 3,
-    TILE_COAST_W    : 3,
-    TILE_COAST_NE   : 3,
-    TILE_COAST_SE   : 3,
-    TILE_COAST_SW   : 3,
-    TILE_COAST_NW   : 3,
-    TILE_MOUNTAIN   : 3,
-    TILE_ROAD_N     : 0,
-    TILE_ROAD_E     : 0,
-    TILE_ROAD_NE    : 0,
-    TILE_ROAD_SE    : 0,
-    TILE_ROAD_SW    : 0,
-    TILE_ROAD_NW    : 0,
-    TILE_WATER_NW   : 3,
-    TILE_WATER_NE   : 3,
-    TILE_WATER_SW   : 3,
-    TILE_WATER_SE   : 3,
-    TILE_FOREST_N   : 4, 
-    TILE_FOREST_S   : 4,  
-    TILE_FOREST_W   : 4, 
-    TILE_FOREST_E   : 4, 
-    TILE_FOREST_NE  : 4, 
-    TILE_FOREST_SE  : 4, 
-    TILE_FOREST_NW  : 4, 
-    TILE_FOREST_SW  : 4, 
-    TILE_MOUTAIN_SW : 0,
-    TILE_MOUTAIN_N  : 0,
-    TILE_CITY       : 10,
-    TILE_BLANK      : 1,
+    TILE_GRASS            : 150,
+    TILE_WATER            : 5,
+    TILE_FOREST           : 3,
+    TILE_COAST_N          : 3,
+    TILE_COAST_E          : 3,
+    TILE_COAST_S          : 3,
+    TILE_COAST_W          : 3,
+    TILE_COAST_NE         : 3,
+    TILE_COAST_SE         : 3,
+    TILE_COAST_SW         : 3,
+    TILE_COAST_NW         : 3,
+    TILE_MOUNTAIN         : 3,
+    TILE_ROAD_N           : 0,
+    TILE_ROAD_E           : 0,
+    TILE_ROAD_NE          : 0,
+    TILE_ROAD_SE          : 0,
+    TILE_ROAD_SW          : 0,
+    TILE_ROAD_NW          : 0,
+    TILE_WATER_NW         : 3,
+    TILE_WATER_NE         : 3,
+    TILE_WATER_SW         : 3,
+    TILE_WATER_SE         : 3,
+    TILE_FOREST_N         : 4, 
+    TILE_FOREST_S         : 4,  
+    TILE_FOREST_W         : 4, 
+    TILE_FOREST_E         : 4, 
+    TILE_FOREST_NE        : 4, 
+    TILE_FOREST_SE        : 4, 
+    TILE_FOREST_NW        : 4, 
+    TILE_FOREST_SW        : 4, 
+    TILE_MOUTAIN_SW       : 0,
+    TILE_MOUTAIN_N        : 0,
+    TILE_CITY             : 0,
+    TILE_BARRACKS         : 0, 
+    TILE_AIRPORT          : 0, 
+    TILE_DOCK             : 0, 
+    TILE_HQ_RED           : 0,
+    TILE_CITY_RED         : 0,
+    TILE_BARRACKS_RED     : 0,
+    TILE_AIRPORT_RED      : 0,
+    TILE_DOCK_RED         : 0,
+    TILE_HQ_BLUE          : 0,
+    TILE_CITY_BLUE        : 0,
+    TILE_BARRACKS_BLUE    : 0,
+    TILE_AIRPORT_BLUE     : 0,
+    TILE_DOCK_BLUE        : 0,
+    TILE_BLANK            : 0,
 }
 
 tileDefense = {
-    TILE_GRASS      : 1,
-    TILE_WATER      : 2,
-    TILE_FOREST     : 4,
-    TILE_COAST_N    : 1,
-    TILE_COAST_E    : 1,
-    TILE_COAST_S    : 1,
-    TILE_COAST_W    : 1,
-    TILE_COAST_NE   : 1,
-    TILE_COAST_SE   : 1,
-    TILE_COAST_SW   : 1,
-    TILE_COAST_NW   : 1,
-    TILE_MOUNTAIN   : 1,
-    TILE_ROAD_N     : 1,
-    TILE_ROAD_E     : 1,
-    TILE_ROAD_NE    : 1,
-    TILE_ROAD_SE    : 1,
-    TILE_ROAD_SW    : 1,
-    TILE_ROAD_NW    : 1,
-    TILE_WATER_NW   : 1,
-    TILE_WATER_NE   : 1,
-    TILE_WATER_SW   : 1,
-    TILE_WATER_SE   : 1,
-    TILE_FOREST_S   : 3,  
-    TILE_FOREST_W   : 3, 
-    TILE_FOREST_E   : 3, 
-    TILE_FOREST_N   : 3, 
-    TILE_FOREST_NE  : 3, 
-    TILE_FOREST_SE  : 3, 
-    TILE_FOREST_NW  : 3, 
-    TILE_FOREST_SW  : 3, 
-    TILE_MOUTAIN_SW : 5,
-    TILE_MOUTAIN_N  : 5,
-    TILE_CITY       : 5,
-    TILE_BLANK      : 1,
+    TILE_GRASS            : 1,
+    TILE_WATER            : 2,
+    TILE_FOREST           : 4,
+    TILE_COAST_N          : 1,
+    TILE_COAST_E          : 1,
+    TILE_COAST_S          : 1,
+    TILE_COAST_W          : 1,
+    TILE_COAST_NE         : 1,
+    TILE_COAST_SE         : 1,
+    TILE_COAST_SW         : 1,
+    TILE_COAST_NW         : 1,
+    TILE_MOUNTAIN         : 1,
+    TILE_ROAD_N           : 1,
+    TILE_ROAD_E           : 1,
+    TILE_ROAD_NE          : 1,
+    TILE_ROAD_SE          : 1,
+    TILE_ROAD_SW          : 1,
+    TILE_ROAD_NW          : 1,
+    TILE_WATER_NW         : 1,
+    TILE_WATER_NE         : 1,
+    TILE_WATER_SW         : 1,
+    TILE_WATER_SE         : 1,
+    TILE_FOREST_S         : 3,  
+    TILE_FOREST_W         : 3, 
+    TILE_FOREST_E         : 3, 
+    TILE_FOREST_N         : 3, 
+    TILE_FOREST_NE        : 3, 
+    TILE_FOREST_SE        : 3, 
+    TILE_FOREST_NW        : 3, 
+    TILE_FOREST_SW        : 3, 
+    TILE_MOUTAIN_SW       : 5,
+    TILE_MOUTAIN_N        : 5,
+    TILE_CITY             : 5,
+    TILE_BARRACKS         : 5, 
+    TILE_AIRPORT          : 5, 
+    TILE_DOCK             : 5, 
+    TILE_HQ_RED           : 5,
+    TILE_CITY_RED         : 5,
+    TILE_BARRACKS_RED     : 5,
+    TILE_AIRPORT_RED      : 5,
+    TILE_DOCK_RED         : 5,
+    TILE_HQ_BLUE          : 5,
+    TILE_CITY_BLUE        : 5,
+    TILE_BARRACKS_BLUE    : 5,
+    TILE_AIRPORT_BLUE     : 5,
+    TILE_DOCK_BLUE        : 5,
+    TILE_BLANK            : 0,
 }
 
 # Tile Spritesheet aka Tile coordinates (coord_x,coord_y,TILESIZE,TILESIZE)
 # Dictionary of all tile coordinates on the SPRITESHEET_PATH
 tileSprites = {
-    TILE_GRASS      : [3,14,TILESIZE,TILESIZE],
-    TILE_WATER      : [20,129,TILESIZE,TILESIZE],
-    TILE_FOREST     : [20,48,TILESIZE,TILESIZE],
-    TILE_COAST_N    : [224,129,TILESIZE,TILESIZE],
-    TILE_COAST_E    : [241,146,TILESIZE,TILESIZE],
-    TILE_COAST_S    : [224,163,TILESIZE,TILESIZE],
-    TILE_COAST_W    : [207,146,TILESIZE,TILESIZE],
-    TILE_COAST_NE   : [241,129,TILESIZE,TILESIZE],
-    TILE_COAST_SE   : [241,163,TILESIZE,TILESIZE],
-    TILE_COAST_SW   : [207,163,TILESIZE,TILESIZE],
-    TILE_COAST_NW   : [207,129,TILESIZE,TILESIZE],
-    TILE_MOUNTAIN   : [105,31,TILESIZE,TILESIZE],
-    TILE_ROAD_N     : [173,65,TILESIZE,TILESIZE],
-    TILE_ROAD_E     : [156,65,TILESIZE,TILESIZE],
-    TILE_ROAD_NE    : [156,48,TILESIZE,TILESIZE],
-    TILE_ROAD_SE    : [156,14,TILESIZE,TILESIZE],
-    TILE_ROAD_SW    : [190,14,TILESIZE,TILESIZE],
-    TILE_ROAD_NW    : [190,48,TILESIZE,TILESIZE],
-    TILE_WATER_NW   : [156,82,TILESIZE,TILESIZE],
-    TILE_WATER_NE   : [190,82,TILESIZE,TILESIZE],
-    TILE_WATER_SW   : [173,82,TILESIZE,TILESIZE],
-    TILE_WATER_SE   : [207,82,TILESIZE,TILESIZE],
-    TILE_FOREST_N   : [20,65,TILESIZE,TILESIZE], 
-    TILE_FOREST_S   : [20,31,TILESIZE,TILESIZE],  
-    TILE_FOREST_W   : [37,48,TILESIZE,TILESIZE], 
-    TILE_FOREST_E   : [3,48,TILESIZE,TILESIZE], 
-    TILE_FOREST_NE  : [3,65,TILESIZE,TILESIZE], 
-    TILE_FOREST_SE  : [3,31,TILESIZE,TILESIZE], 
-    TILE_FOREST_NW  : [37,65,TILESIZE,TILESIZE], 
-    TILE_FOREST_SW  : [37,31,TILESIZE,TILESIZE],
-    TILE_MOUTAIN_SW : [88,14,TILESIZE,TILESIZE],
-    TILE_MOUTAIN_N  : [88,31,TILESIZE,TILESIZE],
-    TILE_CITY       : [88,1245,TILESIZE,TILESIZE*2],
-    TILE_BLANK      : [224,82,TILESIZE,TILESIZE]
+    TILE_GRASS            : [3,14,TILESIZE,TILESIZE],
+    TILE_WATER            : [20,129,TILESIZE,TILESIZE],
+    TILE_FOREST           : [20,48,TILESIZE,TILESIZE],
+    TILE_COAST_N          : [224,129,TILESIZE,TILESIZE],
+    TILE_COAST_E          : [241,146,TILESIZE,TILESIZE],
+    TILE_COAST_S          : [224,163,TILESIZE,TILESIZE],
+    TILE_COAST_W          : [207,146,TILESIZE,TILESIZE],
+    TILE_COAST_NE         : [241,129,TILESIZE,TILESIZE],
+    TILE_COAST_SE         : [241,163,TILESIZE,TILESIZE],
+    TILE_COAST_SW         : [207,163,TILESIZE,TILESIZE],
+    TILE_COAST_NW         : [207,129,TILESIZE,TILESIZE],
+    TILE_MOUNTAIN         : [105,31,TILESIZE,TILESIZE],
+    TILE_ROAD_N           : [173,65,TILESIZE,TILESIZE],
+    TILE_ROAD_E           : [156,65,TILESIZE,TILESIZE],
+    TILE_ROAD_NE          : [156,48,TILESIZE,TILESIZE],
+    TILE_ROAD_SE          : [156,14,TILESIZE,TILESIZE],
+    TILE_ROAD_SW          : [190,14,TILESIZE,TILESIZE],
+    TILE_ROAD_NW          : [190,48,TILESIZE,TILESIZE],
+    TILE_WATER_NW         : [156,82,TILESIZE,TILESIZE],
+    TILE_WATER_NE         : [190,82,TILESIZE,TILESIZE],
+    TILE_WATER_SW         : [173,82,TILESIZE,TILESIZE],
+    TILE_WATER_SE         : [207,82,TILESIZE,TILESIZE],
+    TILE_FOREST_N         : [20,65,TILESIZE,TILESIZE], 
+    TILE_FOREST_S         : [20,31,TILESIZE,TILESIZE],  
+    TILE_FOREST_W         : [37,48,TILESIZE,TILESIZE], 
+    TILE_FOREST_E         : [3,48,TILESIZE,TILESIZE], 
+    TILE_FOREST_NE        : [3,65,TILESIZE,TILESIZE], 
+    TILE_FOREST_SE        : [3,31,TILESIZE,TILESIZE], 
+    TILE_FOREST_NW        : [37,65,TILESIZE,TILESIZE], 
+    TILE_FOREST_SW        : [37,31,TILESIZE,TILESIZE],
+    TILE_MOUTAIN_SW       : [88,14,TILESIZE,TILESIZE],
+    TILE_MOUTAIN_N        : [88,31,TILESIZE,TILESIZE],
+    TILE_CITY             : [88,1212,TILESIZE,TILESIZE_32],
+    TILE_BARRACKS         : [105,1212,TILESIZE,TILESIZE_32], 
+    TILE_AIRPORT          : [122,1212,TILESIZE,TILESIZE_32], 
+    TILE_DOCK             : [139,1212,TILESIZE,TILESIZE_32], 
+    TILE_HQ_RED           : [3,1034,TILESIZE,TILESIZE_32],
+    TILE_CITY_RED         : [88,1034,TILESIZE,TILESIZE_32],
+    TILE_BARRACKS_RED     : [105,1034,TILESIZE,TILESIZE_32],
+    TILE_AIRPORT_RED      : [122,1034,TILESIZE,TILESIZE_32],
+    TILE_DOCK_RED         : [139,1034,TILESIZE,TILESIZE_32],
+    TILE_HQ_BLUE          : [3,1067,TILESIZE,TILESIZE_32],
+    TILE_CITY_BLUE        : [88,1067,TILESIZE,TILESIZE_32],
+    TILE_BARRACKS_BLUE    : [105,1067,TILESIZE,TILESIZE_32],
+    TILE_AIRPORT_BLUE     : [122,1067,TILESIZE,TILESIZE_32],
+    TILE_DOCK_BLUE        : [139,1067,TILESIZE,TILESIZE_32],
+    TILE_BLANK            : [224,82,TILESIZE,TILESIZE],
 }
 
 # All cursor sprites
@@ -337,6 +406,19 @@ CursorSprites = [
     [97,0,32,32]
     ],
 ]
+
+# unit info sprites
+unitsRemaining = {
+    1 : [556,1233,TILESIZE_8,TILESIZE_8],
+    2 : [565,1233,TILESIZE_8,TILESIZE_8],
+    3 : [574,1233,TILESIZE_8,TILESIZE_8],
+    4 : [583,1233,TILESIZE_8,TILESIZE_8],
+    5 : [592,1233,TILESIZE_8,TILESIZE_8],
+    6 : [601,1233,TILESIZE_8,TILESIZE_8],
+    7 : [610,1233,TILESIZE_8,TILESIZE_8],
+    8 : [619,1233,TILESIZE_8,TILESIZE_8],
+    9 : [628,1233,TILESIZE_8,TILESIZE_8],
+}
 
 
 # All units types
@@ -359,29 +441,35 @@ FIGHTER_JET             = 15
 BOMBER                  = 16
 
 # [
-# [Left_1]  ,[Left_2]   ,[Left_3],
-# [DOWN_1]  ,[DOWN_2]   ,[DOWN_3],
-# [UP_1]    ,[UP_2]     ,[UP_3],
-# [RIGHT_1] ,[RIGHT_2]  ,[RIGHT_3],
-# [IDLE_1]  ,[IDLE_2]   ,[IDLE_3],
-# [UNA_1]   ,[UNA_2]    ,[UNA_3]
+# [Left_1]      ,[Left_2]       ,[Left_3]   ,
+# [DOWN_1]      ,[DOWN_2]       ,[DOWN_3]   ,
+# [UP_1]        ,[UP_2]         ,[UP_3]     ,
+# [RIGHT_1]     ,[RIGHT_2]      ,[RIGHT_3]  ,
+# [IDLE_L_1]    ,[IDLE_L_2]     ,[IDLE_L_3] ,
+# [IDLE_R_1]    ,[IDLE_R_2]     ,[IDLE_R_3] ,
+# [UNA_L_1]     ,[UNA_L_2]      ,[UNA_L_3]  ,
+# [UNA_R_1]     ,[UNA_R_2]      ,[UNA_R_3]  ,
 # ]
 unitSprites = {
     INFANTRY                : [
-        [],[],[],
-        [],[],[],
-        [],[],[],
-        [],[],[],
-        [],[],[],
-        [],[],[]
+        [56,104],[81,104],[106,104], # 16x24
+        [56,129],[81,129],[106,129], # 16x24
+        [56,154],[81,154],[106,154], # 16x24
+        [56,104],[81,104],[106,104], # 16x24 # must apply a pygame.transform.scale_x(-1)
+        [3,104],[20,104],[37,104], # 16x16
+        [3,104],[20,104],[37,104], # 16x16 # must apply a pygame.transform.scale_x(-1)
+        [339,104],[356,104],[373,104], # 16x16 
+        [339,104],[356,104],[373,104], # 16x16 # must apply a pygame.transform.scale_x(-1)
     ], 
     HEAVY_INFANTRY          : [
         [],[],[],
         [],[],[],
         [],[],[],
         [],[],[],
+        [],[],[], # 16x16
         [],[],[],
-        [],[],[]    
+        [],[],[],  
+        [],[],[],    
     ], 
     TANK                    : [
         [],[],[],
@@ -389,23 +477,29 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[] 
+        [],[],[],
+        [],[],[], # 16x16 
+        [],[],[],
     ], 
     MEDIUM_TANK             : [
         [],[],[],
+        [],[],[], # 16x16 
         [],[],[],
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[],
+        [],[],[],         
     ], 
     HEAVY_TANK              : [
         [],[],[],
         [],[],[],
         [],[],[],
+        [],[],[], # 16x16 
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[],
+        [],[],[],         
     ], 
     ARTILLERY               : [
         [],[],[],
@@ -413,7 +507,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ], 
     HEAVY_ARTILLERY         : [
         [],[],[],
@@ -421,7 +517,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ], 
     AA_TANK                 : [
         [],[],[],
@@ -429,7 +527,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ], 
     APC                     : [
         [],[],[],
@@ -437,7 +537,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ], 
     SUBMARINE               : [
         [],[],[],
@@ -445,7 +547,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ],  
     DESTROYER               : [
         [],[],[],
@@ -453,15 +557,19 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ],    
     LANDER                  : [
         [],[],[],
         [],[],[],
         [],[],[],
         [],[],[],
+        [],[],[], # 16x16 
         [],[],[],
-        [],[],[]         
+        [],[],[],
+        [],[],[],         
     ],
     CARRIER                 : [
         [],[],[],
@@ -469,7 +577,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ],
     TRANSPORT_HELICOPTER    : [
         [],[],[],
@@ -477,7 +587,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ], 
     COMBAT_HELICOPTER       : [
         [],[],[],
@@ -485,7 +597,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ],
     FIGHTER_JET             : [
         [],[],[],
@@ -493,7 +607,9 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[], # 16x16 
+        [],[],[],
+        [],[],[],         
     ],
     BOMBER                  : [
         [],[],[],
@@ -501,40 +617,65 @@ unitSprites = {
         [],[],[],
         [],[],[],
         [],[],[],
-        [],[],[]         
+        [],[],[],
+        [],[],[], # 16x16 
+        [],[],[],         
     ],
 }
 
+# the base damage matrix
 unitsBaseDamage = [
-    [55, 65, 70, 75, 105, 125, 90, 95, 105, None, None, None, None, 75, None, 110, None],  # Infantry
-    [45, 55, 65, 70, 95, 115, 85, 90, 105, None, None, None, None, 75, None, 110, None],   # Heavy Infantry (Mech)
-    [12, 85, 35, 85, 105, 125, 80, 90, 60, None, None, None, None, 55, None, 105, None],   # Tank
-    [5, 55, 55, 85, 105, 70, 85, 70, 25, None, None, None, None, 55, None, 105, None],     # Medium Tank
-    [1, 15, 15, 55, 75, 45, 55, 40, 5, None, None, None, None, 25, None, 105, None],       # Heavy Tank (Neotank)
-    [14, 75, 45, 75, 125, 125, 90, 90, 50, None, None, None, None, 105, None, 90, None],   # Artillery
-    [15, 70, 45, 70, 115, 125, 80, 85, 45, None, None, None, None, 65, None, 85, None],    # Heavy Artillery (Rockets)
-    [25, 65, 85, 85, 115, 75, 85, 45, 55, None, None, None, None, 120, 120, 65, None],     # Anti-Air Tank
-    [26, 85, 28, 85, 105, 80, 80, 55, 50, None, None, None, None, 65, None, 105, None],    # APC
-    [None, None, None, None, None, None, None, None, None, 55, 120, None, None, None, None, None, None],  # Submarine
-    [None, None, None, None, None, None, None, None, None, 90, 65, 85, None, 100, None, None, 95],  # Destroyer (Cruiser)
-    [None, None, None, None, None, None, None, None, None, 95, 95, 95, 95, 95, None, None, None],  # Lander
-    [None, None, None, None, None, None, None, None, None, 105, 105, None, 95, None, None, None, 95],  # Carrier (Battleship)
-    [None, 9, None, None, None, None, None, None, None, None, None, None, None, 100, 55, None, None],  # Transport Helicopter
-    [30, 35, 35, 35, 45, 85, 75, 65, 55, None, None, None, None, None, None, 65, 100],  # Combat Helicopter (B-Copter)
-    [None, None, None, None, None, None, None, None, None, None, None, None, None, 55, 65, 55, 100],  # Fighter Jet
-    [None, None, None, None, None, None, None, None, None, None, None, None, None, 75, None, 100, None]  # Bomber
+#   (01)   (02)  (03)  (04)  (05)  (06)  (07)  (08)  (09)  (10)  (11)  (12)  (13)  (14)  (15)  (16)  (17) => attacking unit
+    [55,   65,   70,   75,   105,  125,  90,   95,   105,  None, None, None, None, 75,   None, 110,  None], #(01) Infantry
+    [45,   55,   65,   70,   95,   115,  85,   90,   105,  None, None, None, None, 75,   None, 110,  None], #(02) Heavy Infantry (Mech)
+    [12,   85,   35,   85,   105,  125,  80,   90,   60,   None, None, None, None, 55,   None, 105,  None], #(03) Tank
+    [5,    55,   55,   85,   105,  70,   85,   70,   25,   None, None, None, None, 55,   None, 105,  None], #(04) Medium Tank
+    [1,    15,   15,   55,   75,   45,   55,   40,   5,    None, None, None, None, 25,   None, 105,  None], #(05) Heavy Tank (Neotank)
+    [14,   75,   45,   75,   125,  125,  90,   90,   50,   None, None, None, None, 105,  None, 90,   None], #(06) Artillery
+    [15,   70,   45,   70,   115,  125,  80,   85,   45,   None, None, None, None, 65,   None, 85,   None], #(07) Heavy Artillery (Rockets)
+    [25,   65,   85,   85,   115,  75,   85,   45,   55,   None, None, None, None, 120,  120,  65,   None], #(08) Anti-Air Tank
+    [26,   85,   28,   85,   105,  80,   80,   55,   50,   None, None, None, None, 65,   None, 105,  None], #(09) APC
+    [None, None, None, None, None, None, None, None, None, 55,   120,  None, None, None, None, None, None], #(10) Submarine
+    [None, None, None, None, None, None, None, None, None, 90,   65,   85,   None, 100,  None, None, 95],   #(11) Destroyer (Cruiser)
+    [None, None, None, None, None, None, None, None, None, 95,   95,   95,   95,   95,   None, None, None], #(12) Lander
+    [None, None, None, None, None, None, None, None, None, 105,  105,  None, 95,   None, None, None, 95],   #(13) Carrier (Battleship)
+    [None, 9,    None, None, None, None, None, None, None, None, None, None, None, 100,  55,   None, None], #(14) Transport Helicopter
+    [30,   35,   35,   35,   45,   85,   75,   65,   55,   None, None, None, None, None, None, 65,   100],  #(15) Combat Helicopter (B-Copter)
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, 55,   65,   55,   100],  #(16) Fighter Jet
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, 75,   None, 100,  None]  #(17) Bomber
 ]
+
+unitsNameTag = {
+    INFANTRY                : [392,1567,TILESIZE_32,TILESIZE],
+    HEAVY_INFANTRY          : [425,1567,TILESIZE_32,TILESIZE],
+    TANK                    : [460,1567,TILESIZE_32,TILESIZE],
+    MEDIUM_TANK             : [493,1567,TILESIZE_32,TILESIZE],
+    HEAVY_TANK              : [559,1567,TILESIZE_32,TILESIZE],
+    ARTILLERY               : [658,1567,TILESIZE_32,TILESIZE],
+    HEAVY_ARTILLERY         : [691,1567,TILESIZE_32,TILESIZE],
+    AA_TANK                 : [625,1567,TILESIZE_32,TILESIZE],
+    APC                     : [592,1567,TILESIZE_32,TILESIZE],
+    SUBMARINE               : [625,1586,TILESIZE_32,TILESIZE], 
+    DESTROYER               : [526,1586,TILESIZE_32,TILESIZE],    
+    LANDER                  : [592,1586,TILESIZE_32,TILESIZE],
+    CARRIER                 : [559,1586,TILESIZE_32,TILESIZE],
+    TRANSPORT_HELICOPTER    : [491,1586,TILESIZE_32,TILESIZE], 
+    COMBAT_HELICOPTER       : [458,1586,TILESIZE_32,TILESIZE],
+    FIGHTER_JET             : [392,1586,TILESIZE_32,TILESIZE],
+    BOMBER                  : [425,1586,TILESIZE_32,TILESIZE],
+}
 
 # Units stats and data in dictionaries
 LOW_ARMOR = 1
 MEDIUM_ARMOR = 3
 HIGH_ARMOR = 5
+
 LAND_TYPE = "land"
 WATER_TYPE = "water"
 AIR_TYPE = "air"
 
 INFANTRY = {
-    "Name": "infantry",
+    "Name": unitsNameTag[INFANTRY],
     "movement": 3,
     "range": 1,
     "defense": LOW_ARMOR,
@@ -543,7 +684,7 @@ INFANTRY = {
     "base_damage" : unitsBaseDamage[INFANTRY], 
 }
 HEAVY_INFANTRY = {
-    "Name": "heavy infantry",
+    "Name": unitsNameTag[HEAVY_INFANTRY],
     "movement": 2,
     "range": 1,
     "defense": MEDIUM_ARMOR,
@@ -552,7 +693,7 @@ HEAVY_INFANTRY = {
     "base_damage" : unitsBaseDamage[HEAVY_INFANTRY], 
 }
 TANK = {
-    "Name": "tank",
+    "Name": unitsNameTag[TANK],
     "movement": 6,
     "range": 1,
     "defense": MEDIUM_ARMOR,
@@ -561,7 +702,7 @@ TANK = {
     "base_damage" : unitsBaseDamage[TANK], 
 }
 MEDIUM_TANK = {
-    "Name": "medium tank",
+    "Name": unitsNameTag[MEDIUM_TANK],
     "movement": 5,
     "range": 1,
     "defense": HIGH_ARMOR,
@@ -570,7 +711,7 @@ MEDIUM_TANK = {
     "base_damage" : unitsBaseDamage[MEDIUM_TANK], 
 }
 HEAVY_TANK = {
-    "Name": "heavy tank",
+    "Name": unitsNameTag[HEAVY_TANK],
     "movement": 6,
     "range": 1,
     "defense": HIGH_ARMOR,
@@ -579,7 +720,7 @@ HEAVY_TANK = {
     "base_damage" : unitsBaseDamage[HEAVY_TANK], 
 }
 ARTILLERY = {
-    "Name": "artillery",
+    "Name": unitsNameTag[ARTILLERY],
     "movement": 5,
     "range": [2,3],
     "defense": LOW_ARMOR,
@@ -588,7 +729,7 @@ ARTILLERY = {
     "base_damage" : unitsBaseDamage[ARTILLERY], 
 }
 HEAVY_ARTILLERY = {
-    "Name": "heavy artillery",
+    "Name": unitsNameTag[HEAVY_ARTILLERY],
     "movement": 5,
     "range": [3,4,5],
     "defense": LOW_ARMOR,
@@ -597,7 +738,7 @@ HEAVY_ARTILLERY = {
     "base_damage" : unitsBaseDamage[HEAVY_ARTILLERY], 
 }
 AA_TANK = {
-    "Name": "AA tank",
+    "Name": unitsNameTag[AA_TANK],
     "movement": 6,
     "range": 1,
     "defense": MEDIUM_ARMOR,
@@ -606,7 +747,7 @@ AA_TANK = {
     "base_damage" : unitsBaseDamage[AA_TANK], 
 }
 APC = {
-    "Name": "APC",
+    "Name": unitsNameTag[APC],
     "movement": 6,
     "range": 0,
     "defense": MEDIUM_ARMOR,
@@ -615,7 +756,7 @@ APC = {
     "base_damage" : unitsBaseDamage[APC], 
 }
 SUBMARINE = {
-    "Name": "submarine",
+    "Name": unitsNameTag[SUBMARINE],
     "movement": 5,
     "range": 1,
     "defense": MEDIUM_ARMOR,
@@ -624,7 +765,7 @@ SUBMARINE = {
     "base_damage" : unitsBaseDamage[SUBMARINE], 
 }
 DESTROYER = {
-    "Name": "destroyer",
+    "Name": unitsNameTag[DESTROYER],
     "movement": 6,
     "range": 1,
     "defense": MEDIUM_ARMOR,
@@ -633,7 +774,7 @@ DESTROYER = {
     "base_damage" : unitsBaseDamage[DESTROYER], 
 }
 LANDER = {
-    "Name": "lander",
+    "Name": unitsNameTag[LANDER],
     "movement": 6,
     "range": 0,
     "defense": LOW_ARMOR,
@@ -642,7 +783,7 @@ LANDER = {
     "base_damage" : unitsBaseDamage[LANDER], 
 }
 CARRIER = {
-    "Name": "carrier",
+    "Name": unitsNameTag[CARRIER],
     "movement": 5,
     "range": [3,4,5,6],
     "defense": HIGH_ARMOR,
@@ -651,7 +792,7 @@ CARRIER = {
     "base_damage" : unitsBaseDamage[CARRIER], 
 }
 TRANSPORT_HELICOPTER = {
-    "Name": "transport helicopter",
+    "Name": unitsNameTag[TRANSPORT_HELICOPTER],
     "movement": 6,
     "range": 0,
     "defense": LOW_ARMOR,
@@ -660,7 +801,7 @@ TRANSPORT_HELICOPTER = {
     "base_damage" : unitsBaseDamage[TRANSPORT_HELICOPTER], 
 }
 COMBAT_HELICOPTER = {
-    "Name": "combat helicopter",
+    "Name": unitsNameTag[COMBAT_HELICOPTER],
     "movement": 6,
     "range": 1,
     "defense": MEDIUM_ARMOR,
@@ -669,7 +810,7 @@ COMBAT_HELICOPTER = {
     "base_damage" : unitsBaseDamage[COMBAT_HELICOPTER], 
 }
 FIGHTER_JET = {
-    "Name": "fighter jet",
+    "Name": unitsNameTag[FIGHTER_JET],
     "movement": 9,
     "range": 1,
     "defense": HIGH_ARMOR,
@@ -678,7 +819,7 @@ FIGHTER_JET = {
     "base_damage" : unitsBaseDamage[FIGHTER_JET], 
 }
 BOMBER = {
-    "Name": "bomber",
+    "Name": unitsNameTag[BOMBER],
     "movement": 7,
     "range": 1,
     "defense": MEDIUM_ARMOR,
