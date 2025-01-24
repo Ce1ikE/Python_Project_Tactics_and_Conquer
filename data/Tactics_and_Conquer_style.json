@@ -1,0 +1,133 @@
+{
+  "#AdvanceWarsFont":{
+    "font": {
+      "name": "AdvanceWars2",
+      "size": "26",
+      "regular_path": "./assets/fonts/AdvanceWars2GBA.ttf"
+    }
+  },
+
+
+  "#HUD_bg_panel_side": {
+      "images": {
+        "background_image": {
+            "path":"./assets/png/GBA_AW2_Inbattle_Backgrounds_Rain.png",
+            "sub_surface_rect": "129,0,130,162"
+        }
+    }   
+  },
+
+
+  "button": {
+    "prototype": "#AdvanceWarsFont",
+    "colours": {
+      "normal_text": "#184047",
+      "normal_bg": "#EDF0FF00",
+      "normal_border": "#000000",
+      "hovered_text": "#EDF0FF",
+      "hovered_bg": "#282926",
+      "hovered_border": "#ffcc00"
+    },
+    "misc": {
+      "border_width": "0",
+      "shadow_width": "0",
+      "shadow_colour": "#000000"
+    }
+  },
+
+  "label": {
+    "prototype": "#AdvanceWarsFont",
+    "colours": {
+      "dark_bg": "#00000000",
+      "normal_text": "#ffffff",
+      "border_colour": "#000000"
+    },
+    "misc": {
+      "border_width": "2"
+    }
+  },    
+  
+  "panel": {
+    "colours": {
+      "dark_bg": "#F9FFEB",
+      "border_colour": "#000000"
+
+    },
+    "misc": {
+      "border_width": "0",
+      "shadow_width": "3",
+      "shadow_colour": "#000000",
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": "5"
+    }
+  },
+
+
+
+  "#HUD_unitPanel": {
+    "colours": {
+      "dark_bg": "#252623A0"
+    },
+    "misc": {
+      "border_width": "0",
+      "shadow_width": "3",
+      "shadow_colour": "#000000",
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": "0"
+    }
+  },
+  
+  
+  "#HUD_playerPanel" : {
+    "colours": {
+      "dark_bg": "#F8B878",
+      "border_colour": "#000000"
+    }
+  },
+  "#HUD_funds_panel": {
+    "colours": {
+      "dark_bg": "#F8B878"
+    },
+    "misc": {
+      "border_width": "0",
+      "shadow_width": "3",
+      "shadow_colour": "#000000",
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": "0"
+    }
+  },
+  "#HUD_funds_panel.label":{
+      "normal_text": "#000000"
+  },
+
+
+  "#HUD_Barracks_Panel":{
+    "colours": {
+      "dark_bg": "#000000A0"
+    }
+  },
+  "#HUD_Barracks_Unit.label_name": {
+    "misc":{
+      "text_horiz_alignment": "left"
+    }
+  },
+  "#HUD_Barracks_Unit.label_cost": {
+    "misc":{
+      "text_horiz_alignment": "right"
+    }
+  },
+  "#HUD_Barracks_Panel.scroll": {
+    "colours":{
+      "dark_bg":"#F8B878",
+      "border_colour": "#F00008"
+    }
+  },
+  "#HUD_Barracks_Panel.side": {
+    "#prototype": "#HUD_bg_panel_side",
+    "colours":{
+      "dark_bg":"#F8B878",
+      "border_colour": "#F00008"
+    }
+  }
+}
+  

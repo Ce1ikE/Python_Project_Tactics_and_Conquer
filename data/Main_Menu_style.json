@@ -1,0 +1,85 @@
+{
+    "#Greybeard_font": {
+        "font": {
+            "name": "Greybeard",
+            "size": "26",
+            "regular_path": "./assets/fonts/Greybeard.ttf"
+        }
+    },
+
+    "#Image_Menu_bg_1": {
+        "images": {
+            "background_image": {
+                "path": "./assets/jpg/Panel_Background_1.jpeg",
+                "sub_surface_rect": "0,200,735,700"
+            }
+        }
+    },
+
+    "#Image_Menu_bg_2": {
+        "images": {
+            "background_image": {
+                "path":"./assets/jpg/Panel_Background_2.jpeg",
+                "sub_surface_rect": "0,80,735,700"
+            }
+        }
+    },
+
+    "label": {
+        "prototype": "#Greybeard_font",
+        "colours":{
+            "dark_bg": "#80C4E9A0",
+            "normal_text": "#0D0C0B",
+            "text_shadow": "#505050",
+            "normal_border": "#000000"
+        },
+        "misc":
+        {   
+            "shadow_width": "10"
+        }
+    },
+    
+    "button": {
+        "prototype": "#Greybeard_font",
+        "colours": {
+            "normal_border": "#2A333500",
+            "normal_bg": "#2A3335",
+            "normal_text": "#80C4E9",
+
+            "hovered_bg": "#FFF6E9",
+            "hovered_text": "#2A3335"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "5",
+            "border_width": "4"
+        }
+    },
+
+    "#main_menu": {
+        "prototype":"#Image_Menu_bg_1",
+        
+        "colours":{
+            "normal_border": "#C7253E"
+        },
+        
+        "misc": {
+            "shape": "rectangle",
+            "border_width": "2",
+            "shadow_width": "15"
+        }
+    },
+
+    "#howToPlay" : {
+        "prototype":"#Image_Menu_bg_2",
+        "colours":{
+            "dark_bg": "#000000A0"
+        },
+        
+        "misc": {
+            "shape": "rectangle",
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    }
+}
