@@ -11,7 +11,7 @@ class Cell:
 
     def collapse(self):
         if not self.is_collapsed():
-            weights = [tileWeights[option] for option in self.options]
+            weights = [TILE_ATTRIBUTES[option][0] for option in self.options]
             self.options = random.choices(self.options,weights=weights,k=1)  # Choose one option
             self.entropy = 0
 
@@ -23,7 +23,7 @@ class Cell:
         if self.entropy > 0:
             edges = []
             for i in neighbours_allowed:
-                edges.append(tileRuleset[i][direction])
+                edges.append(TILE_RULESET[i][direction])
 
             if direction == NORTH: opposite_direction = SOUTH
             if direction == SOUTH: opposite_direction = NORTH
@@ -31,7 +31,7 @@ class Cell:
             if direction == EAST : opposite_direction = WEST
 
             for option in self.options.copy():
-                if tileRuleset[option][opposite_direction] not in edges:
+                if TILE_RULESET[option][opposite_direction] not in edges:
                     self.options.remove(option)
                     is_reduced = True
             self.entropy = len(self.options)

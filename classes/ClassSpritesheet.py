@@ -1,5 +1,9 @@
 import pygame
 
+# this class is taken from
+# => https://www.pygame.org/wiki/Spritesheet
+# basically i needed a class to load in my spritesheets (just images) and pick the subsprites (again just sub images)
+# and because i didn't know a lot about pygame and espacially python (is this a language ?) i just used this class from the web
 class SpriteSheet:
 
     def __init__(self,filename):
