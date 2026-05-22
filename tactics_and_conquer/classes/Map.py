@@ -1,6 +1,6 @@
 import pygame
-from data.Configuration import *
-from classes.ClassSpritesheet import SpriteSheet
+from .Spritesheet import SpriteSheet
+from ..configuration import *
 
 class Map:
     def __init__(self):

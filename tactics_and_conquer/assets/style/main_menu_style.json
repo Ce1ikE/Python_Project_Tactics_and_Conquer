@@ -3,14 +3,14 @@
         "font": {
             "name": "Greybeard",
             "size": "26",
-            "regular_path": "./assets/fonts/Greybeard.ttf"
+            "regular_path": "{{ asset_root }}/fonts/Greybeard.ttf"
         }
     },
 
     "#Image_Menu_bg_1": {
         "images": {
             "background_image": {
-                "path": "./assets/jpg/Panel_Background_1.jpeg",
+                "path": "{{ asset_root }}/jpg/Panel_Background_1.jpeg",
                 "sub_surface_rect": "0,200,735,700"
             }
         }
@@ -19,7 +19,7 @@
     "#Image_Menu_bg_2": {
         "images": {
             "background_image": {
-                "path":"./assets/jpg/Panel_Background_2.jpeg",
+                "path":"{{ asset_root }}/jpg/Panel_Background_2.jpeg",
                 "sub_surface_rect": "0,80,735,700"
             }
         }

@@ -1,6 +1,6 @@
 import random
 import sys
-from data.Configuration import *
+from ..configuration import *
 
 class Cell:
     def __init__(self,tile_options,x,y):

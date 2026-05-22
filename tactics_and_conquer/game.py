@@ -1,36 +1,44 @@
 import pygame
 import pygame_gui
 import sys
+import json
 import threading
-from classes.ClassAnimate import Animation
-from classes.ClassUnit import Unit
-from classes.ClassGrid import Grid
-from classes.ClassMenu import Menu
-from classes.ClassHUD import HUD
-from classes.ClassMap import Map
-from classes.ClassBuilding import Building
-from classes.ClassPlayer import Player
-from classes.ClassCursor import Cursor
-from classes.ClassSpritesheet import SpriteSheet
-from data.Configuration import *
+from jinja2 import Template
+from .classes.Animation import Animation
+from .classes.Unit import Unit
+from .classes.Grid import Grid
+from .classes.Menu import Menu
+from .classes.HUD import HUD
+from .classes.Map import Map
+from .classes.Building import Building
+from .classes.Player import Player
+from .classes.Cursor import Cursor
+from .classes.Spritesheet import SpriteSheet
+from .configuration import *
 
 # indien je niet weet hoe pygame werkt (goeie introductie van het concept):
 # https://www.codewithc.com/how-to-make-a-turn-based-strategy-game-in-pygame-%F0%9F%8E%B2/
 
 class Game:
     def __init__(self):
+        
         pygame.init()
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("tactics & Conquer")
         # !!! eerst de display initialiseren anders krijg je problemen met de UIManager's thema files
-        self.ui_window = pygame.display.set_mode((WIN_X_PX,WIN_Y_PX),pygame.RESIZABLE)
+        self.ui_window = pygame.display.set_mode((WIN_X_PX,WIN_Y_PX),pygame.RESIZABLE | pygame.HWSURFACE | pygame.DOUBLEBUF)
+        
         # "Menu" wordt getekent door "pygame_gui" dus moeten we een UIManager object doorgeven zodat we de juiste oppervlakte tekenen
-        menu_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX),MAIN_MENU_STYLE)
+        menu_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
+        menu_ui_manager.get_theme().load_theme(self.load_style(MAIN_MENU_STYLE))
         self.menu = Menu(menu_ui_manager)
         # zelfde geld voor de HUD die wel meer UIManagers heeft omdat er meerdere menu's zijn tijdens het spel
-        player_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX),MAIN_GAME_STYLE)
-        unit_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX),MAIN_GAME_STYLE)
-        building_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX),MAIN_GAME_STYLE)
+        player_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
+        player_hud_ui_manager.get_theme().load_theme(self.load_style(MAIN_GAME_STYLE))
+        unit_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
+        unit_hud_ui_manager.get_theme().load_theme(self.load_style(MAIN_GAME_STYLE))
+        building_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
+        building_hud_ui_manager.get_theme().load_theme(self.load_style(MAIN_GAME_STYLE))
         self.hud = HUD(player_hud_ui_manager,unit_hud_ui_manager,building_hud_ui_manager,N_PLAYERS)
 
         # class that implements all complex animations
@@ -134,6 +142,24 @@ class Game:
             TILESIZE_32/TILESIZE
         )        
         
+    def load_style(self,style_file: Path = MAIN_MENU_STYLE):
+
+        if not style_file.exists():
+            raise FileNotFoundError(f"Style file {style_file} does not exist.")
+
+        rendered_json_str = ""        
+        if style_file == MAIN_MENU_STYLE:
+            with open(MAIN_MENU_STYLE) as file:
+                main_menu_template: Template = Template(file.read())
+                rendered_json_str = main_menu_template.render(asset_root=str(ASSETS_PATH))
+        
+        if style_file == MAIN_GAME_STYLE:
+            with open(MAIN_GAME_STYLE) as file:
+                main_game_template: Template = Template(file.read())
+                rendered_json_str = main_game_template.render(asset_root=str(ASSETS_PATH))
+
+        theme_dict: dict = json.loads(rendered_json_str)
+        return theme_dict
 
     def startMapGeneration(self):
         self.thread_for_map = threading.Thread(target=self.createMap,daemon=True)
@@ -283,7 +309,7 @@ class Game:
                         print(f"next turn => current player {self.player_turn}")
                     
                     elif result == MENU:
-                        if self.map_state is 1:
+                        if self.map_state == 1:
                             self.menu.continue_btn.show()
                         self.game_state = MENU
                         print(f"changed to MENU state")

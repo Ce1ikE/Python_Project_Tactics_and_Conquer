@@ -1,9 +1,9 @@
 import pygame
 import pygame_gui
-from classes.ClassBuilding import Building
-from classes.ClassPlayer import Player
-from classes.ClassSpritesheet import SpriteSheet
-from data.Configuration import *
+from .Building import Building
+from .Player import Player
+from .Spritesheet import SpriteSheet
+from ..configuration import *
 
 # HUD == head up display
 class HUD:

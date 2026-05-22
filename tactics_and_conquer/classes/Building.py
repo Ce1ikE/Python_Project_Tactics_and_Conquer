@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
-from classes.ClassSpritesheet import SpriteSheet
-from data.Configuration import *
+from .Spritesheet import SpriteSheet
+from ..configuration import *
 
 class Building:
     def __init__(self,buildingType,x,y,team,buildingIndex):

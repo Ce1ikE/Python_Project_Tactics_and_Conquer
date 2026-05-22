@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
-from data.Configuration import *
-from classes.ClassSpritesheet import SpriteSheet
+from ..configuration import *
+from .Spritesheet import SpriteSheet
 
 
 class Animation:

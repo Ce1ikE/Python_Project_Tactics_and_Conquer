@@ -1,3 +1,19 @@
+"""
+Static game configuration and asset catalogs.
+This module contains all the static configuration of the game, such as:
+- Game states
+- Player numbers and colors
+- Framerate
+- World and window sizes
+- Tile types and attributes
+- Paths to assets (spritesheets, fonts, styles)
+"""
+
+from dataclasses import dataclass
+from enum import Enum
+from typing import Tuple, List, Dict
+from pathlib import Path
+
 # Game states helps us with keeping logic divided in our "main" game loop
 PLAYING             = "playing"
 CONTINUE            = "continue"
@@ -105,36 +121,40 @@ MOUNTAIN_TYPE   = "mountain"
 #     
 # PATHS ARE DEFINED BASED ON WORKING DIRECTORY
 # Path to the spritesheets we use
-SPRITESHEET_PATH_TILES               = "./assets/png/GBA_AW_Tiles.png"
- 
-SPRITESHEET_PATH_CURSOR_1            = "./assets/png/cursor+attack.png"
-SPRITESHEET_PATH_CURSOR_2            = "./assets/png/cursor+default.png"
- 
-SPRITESHEET_PATH_UNITS               = "./assets/png/GBA_AW_Units.png"
- 
-SPRITESHEET_PATH_HUD                 = "./assets/png/GBA_AW_HUD.png"
-SPRITESHEET_PATH_HUD_NEXT_PLAYER     = "./assets/png/icon_next_player.png"
-SPRITESHEET_PATH_HUD_PAUSE           = "./assets/png/icon_pause.png"
-SPRITESHEET_PATH_HUD_PLAY            = "./assets/png/icon_play.png"
-SPRITESHEET_PATH_HUD_ATTACK          = "./assets/png/icon_fire.png"
-SPRITESHEET_PATH_HUD_CAPTURE         = "./assets/png/icon_capture.png"
-SPRITESHEET_PATH_HUD_DEFEND          = "./assets/png/icon_wait.png"
-SPRITESHEET_PATH_HUD_GENERAL_ICONS   = "./assets/png/General_ICON_Sprites.png"
-SPRITESHEET_PATH_HUD_UNITS           = "./assets/png/GBA_AW_2_Black_Hole_Rising_Units.png"
- 
-SPRITESHEET_PATH_CAPTURE_ANIMATION   = "./assets/png/AW_Capture_Sprites.png"
-SPRITESHEET_PATH_CAPTURE_ANIMATION_2 = "./assets/png/AW1Sprites.png"
+ROOT_DIR = Path(__file__).parent
+ASSETS_PATH = ROOT_DIR / "assets"
+SPRITESHEET_PATH = ASSETS_PATH / "spritesheets"
+STYLE_PATH = ASSETS_PATH / "style"
+FONT_PATH = ASSETS_PATH / "fonts"
 
-SPRITESHEET_PATH_KEYBOARDS_INPUT_EX  = "./assets/png/Keyboard_Extras.png"
-SPRITESHEET_PATH_KEYBOARDS_INPUT_SY  = "./assets/png/Keyboard_Letters_and_Symbols.png"
-SPRITESHEET_PATH_KEYBOARDS_INPUT_MO  = "./assets/png/Mouse.png"
+SPRITESHEET_PATH_TILES               = SPRITESHEET_PATH / "GBA_AW_Tiles.png"
  
-# Path to fonts 
-FONT_PATH_GREYBEARD                  = "./assets/fonts/Greybeard.ttf"
+SPRITESHEET_PATH_CURSOR_1            = SPRITESHEET_PATH / "cursor+attack.png"
+SPRITESHEET_PATH_CURSOR_2            = SPRITESHEET_PATH / "cursor+default.png"
  
-# Path to style (json) 
-MAIN_MENU_STYLE                      = "./data/Main_Menu_style.json"
-MAIN_GAME_STYLE                      = "./data/Tactics_and_Conquer_style.json"
+SPRITESHEET_PATH_UNITS               = SPRITESHEET_PATH / "GBA_AW_Units.png"
+ 
+SPRITESHEET_PATH_HUD                 = SPRITESHEET_PATH / "GBA_AW_HUD.png"
+SPRITESHEET_PATH_HUD_NEXT_PLAYER     = SPRITESHEET_PATH / "icon_next_player.png"
+SPRITESHEET_PATH_HUD_PAUSE           = SPRITESHEET_PATH / "icon_pause.png"
+SPRITESHEET_PATH_HUD_PLAY            = SPRITESHEET_PATH / "icon_play.png"
+SPRITESHEET_PATH_HUD_ATTACK          = SPRITESHEET_PATH / "icon_fire.png"
+SPRITESHEET_PATH_HUD_CAPTURE         = SPRITESHEET_PATH / "icon_capture.png"
+SPRITESHEET_PATH_HUD_DEFEND          = SPRITESHEET_PATH / "icon_wait.png"
+SPRITESHEET_PATH_HUD_GENERAL_ICONS   = SPRITESHEET_PATH / "General_ICON_Sprites.png"
+SPRITESHEET_PATH_HUD_UNITS           = SPRITESHEET_PATH / "GBA_AW_2_Black_Hole_Rising_Units.png"
+ 
+SPRITESHEET_PATH_CAPTURE_ANIMATION   = SPRITESHEET_PATH / "AW_Capture_Sprites.png"
+SPRITESHEET_PATH_CAPTURE_ANIMATION_2 = SPRITESHEET_PATH / "AW1Sprites.png"
+
+SPRITESHEET_PATH_KEYBOARDS_INPUT_EX  = SPRITESHEET_PATH / "Keyboard_Extras.png"
+SPRITESHEET_PATH_KEYBOARDS_INPUT_SY  = SPRITESHEET_PATH / "Keyboard_Letters_and_Symbols.png"
+SPRITESHEET_PATH_KEYBOARDS_INPUT_MO  = SPRITESHEET_PATH / "Mouse.png"
+ 
+FONT_PATH_GREYBEARD                  = FONT_PATH / "Greybeard.ttf"
+ 
+MAIN_MENU_STYLE                      = STYLE_PATH / "main_menu_style.json"
+MAIN_GAME_STYLE                      = STYLE_PATH / "tactics_and_conquer_style.json"
 
 # --------------------------------------------------------------------------------------------------------------------------------------- #
 #   
@@ -1278,4 +1298,91 @@ ARROW_DOWN_K    = [16,0,16,16]
 ARROW_LEFT_K    = [32,0,16,16]
 ARROW_RIGHT_K   = [48,0,16,16]
 MOUSE_K         = [310,349,157,231]
+
+
+
+
+
+@dataclass(frozen=True, slots=True)
+class DisplayConfig:
+    """Window, world and timing settings used by the game loop."""
+
+    n_players: int = N_PLAYERS
+    fps: int = FPS
+    world_x: int = WORLD_X
+    world_y: int = WORLD_Y
+    window_x_px: int = WIN_X_PX
+    window_y_px: int = WIN_Y_PX
+    tile_size_8: int = TILESIZE_8
+    tile_size: int = TILESIZE
+    tile_size_24: int = TILESIZE_24
+    tile_size_32: int = TILESIZE_32
+    tile_size_48: int = TILESIZE_48
+    tile_size_64: int = TILESIZE_64
+
+    @property
+    def scale_tile(self) -> int:
+        return int((self.window_y_px / 10) / self.tile_size)
+
+    @property
+    def world_x_px(self) -> int:
+        return self.world_x * self.tile_size * self.scale_tile
+
+    @property
+    def world_y_px(self) -> int:
+        return self.world_y * self.tile_size * self.scale_tile
+
+    @property
+    def win_x(self) -> int:
+        return int(self.window_x_px / (self.scale_tile * self.tile_size))
+
+    @property
+    def win_y(self) -> int:
+        return int(self.window_y_px / (self.scale_tile * self.tile_size))
+
+    @property
+    def camera_x(self) -> int:
+        return self.world_x - self.win_x
+
+    @property
+    def camera_y(self) -> int:
+        return self.world_y - self.win_y
+
+
+@dataclass(frozen=True, slots=True)
+class AssetConfig:
+    """Filesystem locations for the game's sprites and UI styles."""
+
+    spritesheet_tiles: str = SPRITESHEET_PATH_TILES
+    cursor_attack: str = SPRITESHEET_PATH_CURSOR_1
+    cursor_default: str = SPRITESHEET_PATH_CURSOR_2
+    units: str = SPRITESHEET_PATH_UNITS
+    hud: str = SPRITESHEET_PATH_HUD
+    hud_next_player: str = SPRITESHEET_PATH_HUD_NEXT_PLAYER
+    hud_pause: str = SPRITESHEET_PATH_HUD_PAUSE
+    hud_play: str = SPRITESHEET_PATH_HUD_PLAY
+    hud_attack: str = SPRITESHEET_PATH_HUD_ATTACK
+    hud_capture: str = SPRITESHEET_PATH_HUD_CAPTURE
+    hud_defend: str = SPRITESHEET_PATH_HUD_DEFEND
+    hud_general_icons: str = SPRITESHEET_PATH_HUD_GENERAL_ICONS
+    hud_units: str = SPRITESHEET_PATH_HUD_UNITS
+    capture_animation: str = SPRITESHEET_PATH_CAPTURE_ANIMATION
+    capture_animation_2: str = SPRITESHEET_PATH_CAPTURE_ANIMATION_2
+    keyboards_input_ex: str = SPRITESHEET_PATH_KEYBOARDS_INPUT_EX
+    keyboards_input_sy: str = SPRITESHEET_PATH_KEYBOARDS_INPUT_SY
+    keyboards_input_mo: str = SPRITESHEET_PATH_KEYBOARDS_INPUT_MO
+    font_greybeard: str = FONT_PATH_GREYBEARD
+    main_menu_style: str = MAIN_MENU_STYLE
+    main_game_style: str = MAIN_GAME_STYLE
+
+
+@dataclass(frozen=True, slots=True)
+class GameConfiguration:
+    """Immutable namespace that groups the static configuration."""
+
+    display: DisplayConfig = DisplayConfig()
+    assets: AssetConfig = AssetConfig()
+
+
+CONFIG = GameConfiguration()
 

@@ -2,9 +2,9 @@ import pygame
 import pygame_gui
 import random
 import copy
-from classes.ClassMap import Map  
-from classes.ClassSpritesheet import SpriteSheet
-from data.Configuration import *
+from .Map import Map  
+from .Spritesheet import SpriteSheet
+from ..configuration import *
 
 class Unit:
     def __init__(self,unitData: dict,x,y,team,unitID):

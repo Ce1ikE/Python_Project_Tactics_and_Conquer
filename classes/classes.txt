@@ -1,3 +1,0 @@
-#Contains all class files
-
-Example: classEnemy.py
