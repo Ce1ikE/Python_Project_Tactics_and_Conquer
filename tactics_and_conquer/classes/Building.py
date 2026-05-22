@@ -4,6 +4,8 @@ from .Spritesheet import SpriteSheet
 from ..configuration import *
 
 class Building:
+    """Represent a capturable structure placed on the map."""
+
     def __init__(self,buildingType,x,y,team,buildingIndex):
         self.X = x
         self.Y = y
@@ -20,9 +22,11 @@ class Building:
     # TILESIZE_32 (32px) or TILESIZE (16px)
     # so if buildings are introduced with other ratios then checking will have to be implementent 
     def drawBuilding(self,x_offset,y_offset,window_ui: pygame.Surface):
+        """Blit the building surface to the active window."""
         y_blit_offset = -16
         window_ui.blit(self.Buildingpritesheet,((self.X - x_offset)*SCALETILE*TILESIZE,(y_blit_offset * SCALETILE )+ (self.Y - y_offset)*SCALETILE*TILESIZE))
 
     def showBuildingDetails(self,ui_window: pygame.Surface):
+        """Placeholder for a future building detail panel."""
         if self.buildingType in POTENIAL_TRAINING:
             pass

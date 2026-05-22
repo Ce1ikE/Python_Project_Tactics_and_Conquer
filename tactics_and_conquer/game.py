@@ -20,6 +20,8 @@ from .configuration import *
 # https://www.codewithc.com/how-to-make-a-turn-based-strategy-game-in-pygame-%F0%9F%8E%B2/
 
 class Game:
+    """Own the pygame window, state machine, and top-level game loop."""
+
     def __init__(self):
         
         pygame.init()
@@ -72,6 +74,7 @@ class Game:
         # HARD CODED DEBUG ============================================================================
 
     def loadAnimations(self):
+        """Preload and scale the animation surfaces used by the game."""
         # each player has a dictionary of animations because each player's owns his/her sprites
         for player in range(N_PLAYERS):
             for animationNameKey,coordinates in CAPTURE_ANIMATION_PLAYER[player].items():
@@ -143,6 +146,7 @@ class Game:
         )        
         
     def load_style(self,style_file: Path = MAIN_MENU_STYLE):
+        """Render a Jinja-style UI theme into a dictionary for pygame_gui."""
 
         if not style_file.exists():
             raise FileNotFoundError(f"Style file {style_file} does not exist.")
@@ -162,10 +166,12 @@ class Game:
         return theme_dict
 
     def startMapGeneration(self):
+        """Spawn the background thread that generates a new map."""
         self.thread_for_map = threading.Thread(target=self.createMap,daemon=True)
         self.thread_for_map.start()
 
     def createMap(self):
+        """Run the procedural map-generation loop until it succeeds."""
         grid = Grid(WORLD_X, WORLD_Y,self.ui_window,self.players,self.map)
         while self.map_state == 0:
             result = grid.collapse_wave_function()
@@ -193,6 +199,7 @@ class Game:
                 grid = Grid(WORLD_X, WORLD_Y,self.ui_window,self.players,self.map)
 
     def run(self):
+        """Enter the main event loop and keep the game alive."""
         # de "run" functie runt de game
         while True:
             # Set framerate to max 40/s

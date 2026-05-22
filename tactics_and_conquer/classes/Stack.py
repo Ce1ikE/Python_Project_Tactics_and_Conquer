@@ -1,4 +1,6 @@
 class Stack:
+    """Simple LIFO stack used by the map-generation logic."""
+
     def __init__(self):
         self.items = []
 

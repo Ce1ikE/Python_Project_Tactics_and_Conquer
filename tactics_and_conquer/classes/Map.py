@@ -3,6 +3,8 @@ from .Spritesheet import SpriteSheet
 from ..configuration import *
 
 class Map:
+    """Store the rendered world surface and visible terrain metadata."""
+
     def __init__(self):
         self.mapSize = (WORLD_X_PX,WORLD_Y_PX)
         self.windowSize = (WIN_X_PX,WIN_Y_PX)
@@ -29,10 +31,12 @@ class Map:
                 self.mapSurface.blit(image_cell, (x * TILESIZE * SCALETILE,y * TILESIZE * SCALETILE))
 
     def createMapSurface(self,image,x,y):
+        """Copy a rendered tile into the cached world surface."""
         self.mapSurface.blit(image,(x,y))
     
     # heb hier "typing" toegevoegd omdat zo de IDE automatisch de methods en attributes kan zien
     def drawHUDMap(self,x_offset,y_offset,ui_window: pygame.Surface):
+        """Draw the map with a contrast overlay for HUD states."""
         # eigenlijk geen filter gewoon een tweede surface met een alpha value (opacity)
         # dat op de map surface wordt getekent
         map_rect = pygame.Rect([x_offset*TILESIZE*SCALETILE,y_offset*TILESIZE*SCALETILE,WIN_X_PX,WIN_Y_PX])
@@ -40,6 +44,7 @@ class Map:
         ui_window.blit(self.contrast_filterMap,(0,0))
 
     def drawMap(self,x_offset,y_offset,ui_window: pygame.Surface):
+        """Draw the visible world slice without the HUD overlay."""
         map_rect = pygame.Rect([x_offset*TILESIZE*SCALETILE,y_offset*TILESIZE*SCALETILE,WIN_X_PX,WIN_Y_PX])
         ui_window.blit(self.mapSurface,(0,0),map_rect)
 

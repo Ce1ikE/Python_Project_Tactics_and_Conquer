@@ -5,8 +5,9 @@ from .Player import Player
 from .Spritesheet import SpriteSheet
 from ..configuration import *
 
-# HUD == head up display
 class HUD:
+    """Build and manage the in-game HUD panels and buttons."""
+
     def __init__(self,player_ui_manager: pygame_gui.UIManager,unit_ui_manager: pygame_gui.UIManager,building_ui_manager: pygame_gui.UIManager,numberOfPlayers: int):
         panel_width = 200
         panel_height = 200

@@ -1,0 +1,32 @@
+name: Generate docs
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: {}
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jinja2
+      - name: Run docs generator
+        run: |
+          python tools/generate_docs.py
+      - name: Commit generated docs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs || true
+          git commit -m "chore(docs): regenerate docs" || echo "no changes"
+          git push origin HEAD:refs/heads/${GITHUB_REF#refs/heads/}

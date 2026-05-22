@@ -4,6 +4,8 @@ from .Building import Building
 from ..configuration import *
 
 class Player:
+    """Store the state, assets, and owned units for one player."""
+
     def __init__(self,player_number):
         self.player_number = player_number
         self.funds = 1000
