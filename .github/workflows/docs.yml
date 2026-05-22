@@ -14,6 +14,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Install SDL development headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsdl1.2-dev libsdl2-dev
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
         with:
