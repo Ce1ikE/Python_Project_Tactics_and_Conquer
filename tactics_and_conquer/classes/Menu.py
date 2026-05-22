@@ -5,6 +5,8 @@ from .Spritesheet import SpriteSheet
 from ..configuration import *
 
 class Menu:
+    """Manage the main menu and help screens."""
+
     def __init__(self,ui_manager: pygame_gui.UIManager):
         self.manager = ui_manager
         self.effect_timer = 4000
@@ -156,6 +158,7 @@ class Menu:
 
 
     def drawMainMenu(self,ui_window: pygame.Surface):
+        """Render the menu UI onto the game window."""
         ui_window.blit(self.mainMenuBackground,(0,0))
         self.manager.draw_ui(ui_window)
 
@@ -169,6 +172,7 @@ class Menu:
             self.label_gameTitle.set_active_effect(None)
 
     def handleMenuEvents(self,event: pygame.event.Event,map_state: int):
+        """React to button presses in the menu screens."""
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.start_btn:
                 return PLAYING

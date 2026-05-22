@@ -98,6 +98,8 @@ from ..configuration import *
 # ENJOY the "grid" class 
 
 class Grid:
+    """Generate and draw maps with a wave-function-collapse approach."""
+
     def __init__(self, width: int, height: int,ui_window,playerList: list[Player],map: Map):
         self.playerList: list[Player] = playerList
         self.cols: int = width

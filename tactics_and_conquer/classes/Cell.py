@@ -3,6 +3,8 @@ import sys
 from ..configuration import *
 
 class Cell:
+    """Track one tile candidate during wave-function-collapse generation."""
+
     def __init__(self,tile_options,x,y):
         self.options = tile_options  # List of possible tile options
         self.entropy = len(tile_options)  # Entropy is the number of possible options
@@ -10,15 +12,18 @@ class Cell:
         self.pos_y = y
 
     def collapse(self):
+        """Collapse the cell to one weighted random tile option."""
         if not self.is_collapsed():
             weights = [TILE_ATTRIBUTES[option][0] for option in self.options]
             self.options = random.choices(self.options,weights=weights,k=1)  # Choose one option
             self.entropy = 0
 
     def add_neighbours(self,neighbours):
+        """Attach neighbouring cells used during propagation."""
         self.neighbours = neighbours
 
     def reduce_options(self,neighbours_allowed,direction):
+        """Remove options that violate the allowed neighbour edges."""
         is_reduced = False
         if self.entropy > 0:
             edges = []
@@ -38,4 +43,5 @@ class Cell:
         return is_reduced
 
     def is_collapsed(self):
+        """Return True when the cell has exactly one option left."""
         return self.entropy == 0

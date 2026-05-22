@@ -3,6 +3,8 @@ from .Spritesheet import SpriteSheet
 from ..configuration import *
 
 class Cursor:
+    """Track and draw the active cursor for map navigation."""
+
     def __init__(self,x,y):
         self.X = 0
         self.Y = 0
@@ -25,6 +27,7 @@ class Cursor:
         self.cursorCycleList = 0
 
     def drawCursor(self,ui_window):
+        """Draw the regular cursor animation."""
         # get the time in milliseconds so if we run the game at 40 frames/sec
         # and want the cursor's image changes every "t" in milliseconds then
         # we need to check if the difference between "current time" and "last time"
@@ -37,6 +40,7 @@ class Cursor:
         ui_window.blit(self.cursorSpritesheet[self.spritesheetCounter], (self.X*TILESIZE*SCALETILE, self.Y*TILESIZE*SCALETILE))
 
     def drawAttackCursor(self,ui_window):
+        """Draw the attack cursor animation."""
         current_time = pygame.time.get_ticks()
         if current_time - self.spritesheetTimer > self.spritesheetTimeGap:
             self.spritesheetTimer = current_time
@@ -44,6 +48,7 @@ class Cursor:
         ui_window.blit(self.attackCursorSpritesheet[self.spritesheetCounter], (self.X*TILESIZE*SCALETILE, self.Y*TILESIZE*SCALETILE))
 
     def setPosition(self,camera_x,camera_y,coordinates,keyPress):
+        """Move the cursor one step through a linear coordinate list."""
 
         setNextCoord = False
         current_time = pygame.time.get_ticks()
@@ -83,6 +88,7 @@ class Cursor:
         return [camera_x,camera_y]
 
     def cyclePosition(self,camera_x,camera_y,coordinates: list[tuple],keyPress):
+        """Jump the cursor to the next coordinate matching a direction key."""
         # in order to cycle through a list of coordinates we need to readjust
         # the camera's position and the cursor accordingly  
         # of course first you check whether it was requested by the user to move to the next coordinate

@@ -7,6 +7,8 @@ from .Spritesheet import SpriteSheet
 from ..configuration import *
 
 class Unit:
+    """Represent a combat unit with movement, attack, and capture logic."""
+
     def __init__(self,unitData: dict,x,y,team,unitID):
         
         self.movement: int = unitData.get("movement")
