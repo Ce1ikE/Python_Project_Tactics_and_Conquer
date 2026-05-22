@@ -3,7 +3,7 @@
     "font": {
       "name": "AdvanceWars2",
       "size": "26",
-      "regular_path": "./assets/fonts/AdvanceWars2GBA.ttf"
+      "regular_path": "{{ asset_root }}/fonts/AdvanceWars2GBA.ttf"
     }
   },
 
@@ -11,7 +11,7 @@
   "#HUD_bg_panel_side": {
       "images": {
         "background_image": {
-            "path":"./assets/png/GBA_AW2_Inbattle_Backgrounds_Rain.png",
+            "path":"{{ asset_root }}/spritesheets/GBA_AW2_Inbattle_Backgrounds_Rain.png",
             "sub_surface_rect": "129,0,130,162"
         }
     }   

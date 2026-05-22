@@ -1,8 +1,8 @@
 import pygame
 import pygame_gui
 from pygame_gui.core import ObjectID
-from classes.ClassSpritesheet import SpriteSheet
-from data.Configuration import *
+from .Spritesheet import SpriteSheet
+from ..configuration import *
 
 class Menu:
     def __init__(self,ui_manager: pygame_gui.UIManager):
@@ -168,7 +168,7 @@ class Menu:
         elif  current_time - self.effect_timer > self.effect_timer:
             self.label_gameTitle.set_active_effect(None)
 
-    def handleMenuEvents(self,event,map_state):
+    def handleMenuEvents(self,event: pygame.event.Event,map_state: int):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.start_btn:
                 return PLAYING

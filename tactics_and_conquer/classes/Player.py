@@ -1,7 +1,7 @@
 import pygame
-from classes.ClassUnit import Unit
-from classes.ClassBuilding import Building
-from data.Configuration import *
+from .Unit import Unit
+from .Building import Building
+from ..configuration import *
 
 class Player:
     def __init__(self,player_number):

@@ -1,2 +1,0 @@
-#Contains all data related files
-such as save files , player configurations , game configurations , etc.

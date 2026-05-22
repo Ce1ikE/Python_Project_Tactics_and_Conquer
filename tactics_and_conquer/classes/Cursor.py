@@ -1,6 +1,6 @@
 import pygame
-from classes.ClassSpritesheet import SpriteSheet
-from data.Configuration import *
+from .Spritesheet import SpriteSheet
+from ..configuration import *
 
 class Cursor:
     def __init__(self,x,y):
