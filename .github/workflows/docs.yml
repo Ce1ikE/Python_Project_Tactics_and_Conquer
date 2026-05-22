@@ -8,26 +8,17 @@ on:
 jobs:
   build-docs:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - name: Install SDL development headers
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libsdl1.2-dev libsdl2-dev
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          enable-cache: true
-      - name: Sync dependencies
-        run: |
-          uv sync
+          python-version: '3.14'
       - name: Run docs generator
         run: |
-          uv run python tools/generate_docs.py
+          python tools/generate_docs.py
       - name: Commit generated docs
         run: |
           git config user.name "github-actions[bot]"
