@@ -184,9 +184,9 @@ class Menu:
             elif event.ui_element == self.main_menu:
                 self.ui_panel_how_to_play.hide()  
                 self.main_ui_panel.show()
-                if map_state is 1:
+                if map_state == 1:
                     self.continue_btn.show()
-                else :
+                else:
                     self.continue_btn.hide()
             elif event.ui_element == self.quit_btn:
                 return QUIT

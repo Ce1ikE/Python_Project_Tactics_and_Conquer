@@ -7,24 +7,6 @@
         }
     },
 
-    "#Image_Menu_bg_1": {
-        "images": {
-            "background_image": {
-                "path": "{{ asset_root }}/jpg/Panel_Background_1.jpeg",
-                "sub_surface_rect": "0,200,735,700"
-            }
-        }
-    },
-
-    "#Image_Menu_bg_2": {
-        "images": {
-            "background_image": {
-                "path":"{{ asset_root }}/jpg/Panel_Background_2.jpeg",
-                "sub_surface_rect": "0,80,735,700"
-            }
-        }
-    },
-
     "label": {
         "prototype": "#Greybeard_font",
         "colours":{
@@ -57,27 +39,40 @@
     },
 
     "#main_menu": {
-        "prototype":"#Image_Menu_bg_1",
+        "images": {
+            "background_image": {
+                "path": "{{ asset_root }}/jpg/Panel_Background_1.jpeg",
+                "sub_surface_rect": "0,200,735,700"
+            }
+        },
         
         "colours":{
             "normal_border": "#C7253E"
         },
         
         "misc": {
-            "shape": "rectangle",
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "5",
             "border_width": "2",
             "shadow_width": "15"
         }
     },
 
     "#howToPlay" : {
-        "prototype":"#Image_Menu_bg_2",
+        "images": {
+            "background_image": {
+                "path":"{{ asset_root }}/jpg/Panel_Background_2.jpeg",
+                "sub_surface_rect": "0,80,735,700"
+            }
+        },
+
         "colours":{
             "dark_bg": "#000000A0"
         },
         
         "misc": {
-            "shape": "rectangle",
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "5",
             "border_width": "0",
             "shadow_width": "0"
         }

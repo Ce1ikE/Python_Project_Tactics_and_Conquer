@@ -28,19 +28,31 @@ class Game:
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("tactics & Conquer")
         # !!! eerst de display initialiseren anders krijg je problemen met de UIManager's thema files
-        self.ui_window = pygame.display.set_mode((WIN_X_PX,WIN_Y_PX),pygame.RESIZABLE | pygame.HWSURFACE | pygame.DOUBLEBUF)
+        self.ui_window = pygame.display.set_mode((WIN_X_PX,WIN_Y_PX),pygame.RESIZABLE ) # | pygame.HWSURFACE | pygame.DOUBLEBUF
         
         # "Menu" wordt getekent door "pygame_gui" dus moeten we een UIManager object doorgeven zodat we de juiste oppervlakte tekenen
-        menu_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
-        menu_ui_manager.get_theme().load_theme(self.load_style(MAIN_MENU_STYLE))
+        menu_ui_manager = pygame_gui.UIManager(
+            (WIN_X_PX,WIN_Y_PX),
+            enable_live_theme_updates=True,
+            theme_path=self.load_style(MAIN_MENU_STYLE)
+        )
         self.menu = Menu(menu_ui_manager)
         # zelfde geld voor de HUD die wel meer UIManagers heeft omdat er meerdere menu's zijn tijdens het spel
-        player_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
-        player_hud_ui_manager.get_theme().load_theme(self.load_style(MAIN_GAME_STYLE))
-        unit_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
-        unit_hud_ui_manager.get_theme().load_theme(self.load_style(MAIN_GAME_STYLE))
-        building_hud_ui_manager = pygame_gui.UIManager((WIN_X_PX,WIN_Y_PX))
-        building_hud_ui_manager.get_theme().load_theme(self.load_style(MAIN_GAME_STYLE))
+        player_hud_ui_manager = pygame_gui.UIManager(
+            (WIN_X_PX,WIN_Y_PX),
+            enable_live_theme_updates=True,
+            theme_path=self.load_style(MAIN_GAME_STYLE)
+        )
+        unit_hud_ui_manager = pygame_gui.UIManager(
+            (WIN_X_PX,WIN_Y_PX),
+            enable_live_theme_updates=True,
+            theme_path=self.load_style(MAIN_GAME_STYLE)
+        )
+        building_hud_ui_manager = pygame_gui.UIManager(
+            (WIN_X_PX,WIN_Y_PX),
+            enable_live_theme_updates=True,
+            theme_path=self.load_style(MAIN_GAME_STYLE)
+        )
         self.hud = HUD(player_hud_ui_manager,unit_hud_ui_manager,building_hud_ui_manager,N_PLAYERS)
 
         # class that implements all complex animations
