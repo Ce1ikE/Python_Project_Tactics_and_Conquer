@@ -7,17 +7,6 @@
     }
   },
 
-
-  "#HUD_bg_panel_side": {
-      "images": {
-        "background_image": {
-            "path":"{{ asset_root }}/spritesheets/GBA_AW2_Inbattle_Backgrounds_Rain.png",
-            "sub_surface_rect": "129,0,130,162"
-        }
-    }   
-  },
-
-
   "button": {
     "prototype": "#AdvanceWarsFont",
     "colours": {
@@ -123,7 +112,12 @@
     }
   },
   "#HUD_Barracks_Panel.side": {
-    "#prototype": "#HUD_bg_panel_side",
+    "images": {
+        "background_image": {
+            "path":"{{ asset_root }}/spritesheets/GBA_AW2_Inbattle_Backgrounds_Rain.png",
+            "sub_surface_rect": "129,0,130,162"
+        }
+    },  
     "colours":{
       "dark_bg":"#F8B878",
       "border_colour": "#F00008"
